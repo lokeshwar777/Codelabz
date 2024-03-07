@@ -26,11 +26,11 @@ const SmButtons = () => {
       }}
     >
       <Grid item>
-        <IconButton className={classes.button}>
-          <Icon
-            onClick={() => signInWithGoogle()(firebase, dispatch)}
-            className={classes.google}
-          >
+        <IconButton
+          className={classes.button}
+          onClick={() => signInWithGoogle()(firebase, dispatch)}
+        >
+          <Icon className={classes.google}>
             <img className={classes.imageIcon} src={GoogleImg} alt="google" />
           </Icon>
         </IconButton>

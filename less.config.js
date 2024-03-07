@@ -1,4 +1,4 @@
-const lessOptions = {
+export const lessOptions = {
   lessOptions: {
     javascriptEnabled: true,
     modifyVars: {
@@ -9,8 +9,4 @@ const lessOptions = {
       "@border-radius-base": "5px"
     }
   }
-};
-
-module.exports = {
-  lessOptions
 };

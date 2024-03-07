@@ -37,14 +37,14 @@ const EventsCard = props => {
     <div className={classes.root}>
       <Card
         className={(classes.card, classes.root)}
-        data-testId="upcomingEventCard"
+        data-testid="upcomingEventCard"
       >
         <CardContent
           style={{
             width: "100%"
           }}
         >
-          <Typography variant="h5" component="div" gutterBottom>
+          <Typography variant="h5" component="div" gutterbottom="true">
             {props.title}
           </Typography>
           {props.events.map(function (event, index) {
@@ -54,23 +54,23 @@ const EventsCard = props => {
                 container
                 direction="row"
                 spacing={2}
-                data-testId={index == 0 ? "upEventBox" : ""}
+                data-testid={index == 0 ? "upEventBox" : ""}
               >
                 <Grid item xs={3}>
                   <img
                     src={event.img[0]}
                     className={classes.logo}
-                    data-testId={index == 0 ? "upEventImg" : ""}
+                    data-testid={index == 0 ? "upEventImg" : ""}
                   />
                 </Grid>
 
                 <Grid item xs={9}>
-                  <Box data-testId={index == 0 ? "upEventName" : ""}>
+                  <Box data-testid={index == 0 ? "upEventName" : ""}>
                     <Typography>{event.name}</Typography>
                   </Box>
                   <Box
                     sx={{ fontWeight: 400, fontSize: "0.8rem" }}
-                    data-testId={index == 0 ? "upEventDate" : ""}
+                    data-testid={index == 0 ? "upEventDate" : ""}
                   >
                     <Typography>{event.date}</Typography>
                   </Box>
