@@ -110,51 +110,52 @@ const RightMenu = ({ mode }) => {
         }}
         className={classes.menu}
       >
-        {allowDashboard && (
-          <MenuItem key="setting:2">
-            <Link to={"/tutorials"}>
-              <CodeOutlinedIcon /> My Tutorials
-            </Link>
-          </MenuItem>
-        )}
-        {allowDashboard && allowOrgs && (
-          <Menu
-            title={
-              <>
-                <BlockOutlinedIcon /> My Organizations
-              </>
-            }
-          >
-            <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
-              <Link to={`/organization`}>
-                <SettingsOutlinedIcon /> Manage All
+        {[
+          allowDashboard && (
+            <MenuItem key="setting:2">
+              <Link to={"/tutorials"}>
+                <CodeOutlinedIcon /> My Tutorials
               </Link>
             </MenuItem>
-            <Divider></Divider>
-            {orgList}
-          </Menu>
-        )}
-
-        {profile.displayName && profile.displayName.length > 0 && (
-          <MenuItem style={{ color: "gray" }}>{profile.displayName}</MenuItem>
-        )}
-        {allowDashboard && (
-          <MenuItem key="setting:1">
-            <Link to={"/profile"}>
-              <div style={{ color: "#455A64" }}>
-                <PersonOutlineOutlinedIcon /> My Profile
-              </div>
-            </Link>
+          ),
+          allowDashboard && allowOrgs && (
+            <Menu
+              title={
+                <>
+                  <BlockOutlinedIcon /> My Organizations
+                </>
+              }
+            >
+              <MenuItem key={`org:${-1}`} style={{ marginBottom: "4px" }}>
+                <Link to={`/organization`}>
+                  <SettingsOutlinedIcon /> Manage All
+                </Link>
+              </MenuItem>
+              <Divider />
+              {orgList}
+            </Menu>
+          ),
+          profile.displayName && profile.displayName.length > 0 && (
+            <MenuItem style={{ color: "gray" }}>{profile.displayName}</MenuItem>
+          ),
+          allowDashboard && (
+            <MenuItem key="setting:1">
+              <Link to={"/profile"}>
+                <div style={{ color: "#455A64" }}>
+                  <PersonOutlineOutlinedIcon /> My Profile
+                </div>
+              </Link>
+            </MenuItem>
+          ),
+          <MenuItem
+            key="setting:4"
+            onClick={() => signOut()(firebase, dispatch)}
+            id={"log-out"}
+            style={{ color: "#455A64" }}
+          >
+            <ExitToAppOutlinedIcon /> Log Out
           </MenuItem>
-        )}
-        <MenuItem
-          key="setting:4"
-          onClick={() => signOut()(firebase, dispatch)}
-          id={"log-out"}
-          style={{ color: "#455A64" }}
-        >
-          <ExitToAppOutlinedIcon /> Log Out
-        </MenuItem>
+        ]}
       </Menu>
     </Grid>
   );

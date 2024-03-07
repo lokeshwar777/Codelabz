@@ -8,5 +8,5 @@ export default defineConfig({
     baseUrl: "http://localhost:5173",
     testIsolation: false
   },
-  projectId: process.env.CYPRESS_PROJECT_ID
+  projectId: import.meta.env.CYPRESS_PROJECT_ID
 });

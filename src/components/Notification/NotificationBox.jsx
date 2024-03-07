@@ -69,13 +69,20 @@ const NotificationBox = ({ notification }) => {
             <MoreHorizOutlinedIcon />
           </IconButton>
           <Menu anchorEl={anchorRef.current} open={open} onClose={handleClose}>
-            <MenuItem onClick={handleRead}>Mark as read</MenuItem>
-            <MenuItem onClick={() => handleDelete(notification.id)}>
-              Delete
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              Block {notification.username}
-            </MenuItem>
+            {[
+              <MenuItem key="mark-as-read" onClick={handleRead}>
+                Mark as read
+              </MenuItem>,
+              <MenuItem
+                key="delete"
+                onClick={() => handleDelete(notification.id)}
+              >
+                Delete
+              </MenuItem>,
+              <MenuItem key="block-user" onClick={handleClose}>
+                Block {notification.username}
+              </MenuItem>
+            ]}
           </Menu>
         </div>
       </Card>

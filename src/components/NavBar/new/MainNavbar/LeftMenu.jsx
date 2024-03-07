@@ -81,19 +81,21 @@ const LeftMenu = ({ mode, onClick }) => {
         className={classes.menu}
         elevation={1}
       >
-        <MenuItem key="/tutorials">
-          <NavLink to="/tutorials">Tutorials</NavLink>
-        </MenuItem>
-        {allowDashboard && (
-          <MenuItem key="my-code-feed">
-            <NavLink to="/dashboard/my_feed">My CodeFeed</NavLink>
-          </MenuItem>
-        )}
-        {allowDashboard && permissions.length > 0 && (
-          <MenuItem key="/organization">
-            <NavLink to="/organization">Organizations</NavLink>
-          </MenuItem>
-        )}
+        {[
+          <MenuItem key="/tutorials">
+            <NavLink to="/tutorials">Tutorials</NavLink>
+          </MenuItem>,
+          allowDashboard && (
+            <MenuItem key="my-code-feed">
+              <NavLink to="/dashboard/my_feed">My CodeFeed</NavLink>
+            </MenuItem>
+          ),
+          allowDashboard && permissions.length > 0 && (
+            <MenuItem key="/organization">
+              <NavLink to="/organization">Organizations</NavLink>
+            </MenuItem>
+          )
+        ]}
       </Menu>
     </React.Fragment>
   );

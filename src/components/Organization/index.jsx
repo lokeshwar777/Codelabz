@@ -151,14 +151,14 @@ const Organizations = () => {
                     name: "Social media",
                     datatestid: "socialmedia-menu-item"
                   }
-                ].map(item => {
-                  return (
-                    <MenuItem
-                      key={`menu-item-${item.id}`}
-                      onClick={() => setSettingsMenu(item.id)}
-                    >{`${item.name}`}</MenuItem>
-                  );
-                })}
+                ].map(item => (
+                  <MenuItem
+                    key={`menu-item-${item.id}`}
+                    onClick={() => setSettingsMenu(item.id)}
+                  >
+                    {item.name}
+                  </MenuItem>
+                ))}
               </Menu>
             </Grid>
           ) : (

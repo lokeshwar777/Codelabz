@@ -168,12 +168,15 @@ const ProfileInfoCard = () => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem
-                    id="edit"
-                    onClick={() => setProfileEditModalVisible(true)}
-                  >
-                    Edit Profile
-                  </MenuItem>
+                  {[
+                    <MenuItem
+                      key="edit"
+                      id="edit"
+                      onClick={() => setProfileEditModalVisible(true)}
+                    >
+                      Edit Profile
+                    </MenuItem>
+                  ]}
                 </Menu>
               </div>
             </Grid>

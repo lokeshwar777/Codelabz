@@ -356,34 +356,35 @@ const OrgUsersCard = () => {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                           >
-                            {options.map((option, index) => (
-                              <div key={index}>
-                                <MenuItem
-                                  style={{ color: index === 3 ? "red" : "" }}
-                                  onClick={() =>
-                                    handlePermissionChange(
-                                      option.value,
-                                      item.permission_level[0],
-                                      item.handle
-                                    )
-                                  }
+                            {options.map((option, index) => [
+                              <MenuItem
+                                key={index}
+                                style={{ color: index === 3 ? "red" : "" }}
+                                onClick={() =>
+                                  handlePermissionChange(
+                                    option.value,
+                                    item.permission_level[0],
+                                    item.handle
+                                  )
+                                }
+                              >
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-between"
+                                  }}
                                 >
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "space-between"
-                                    }}
-                                  >
-                                    {option.icon}
-                                    <div style={{ paddingLeft: "5px" }}>
-                                      {option.name}
-                                    </div>
+                                  {option.icon}
+                                  <div style={{ paddingLeft: "5px" }}>
+                                    {option.name}
                                   </div>
-                                </MenuItem>
-                                {index === 2 ? <Divider /> : null}
-                              </div>
-                            ))}
+                                </div>
+                              </MenuItem>,
+                              index === 2 ? (
+                                <Divider key={`divider-${index}`} />
+                              ) : null
+                            ])}
                           </Menu>
                         </>
                       ) : (
