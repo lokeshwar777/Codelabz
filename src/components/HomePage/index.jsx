@@ -198,14 +198,20 @@ function HomePage({ background = "white", textColor = "black" }) {
     <Card
       className={classes.wrapper}
       style={{ background: background }}
-      data-testId="homepage"
+      data-testid="homepage"
     >
       <Grid container justifyContent="center" className={classes.contentPart}>
-        <Grid item xs={2} className={classes.sideBody}>
+        {/* <Grid container item={windowSize.width > 750 ? true : undefined} xs={2} className={classes.sideBody}> */}
+        <Grid
+          container
+          item={windowSize.width > 750 ? true : undefined}
+          xs={windowSize.width > 750 ? 2 : undefined}
+          className={classes.sideBody}
+        >
           {windowSize.width > 750 && (
             <Grid
-              item
               container
+              item={windowSize.width > 750 ? true : undefined}
               className={classes.leftSideCard}
               direction="column"
               style={{
@@ -216,17 +222,22 @@ function HomePage({ background = "white", textColor = "black" }) {
                 boxShadow: "none"
               }}
             >
-              <Grid item className={classes.outerSideBar}>
+              <Grid
+                container
+                item={windowSize.width > 750 ? true : undefined}
+                className={classes.outerSideBar}
+              >
                 <SideBar open={openMenu} toggleSlider={toggleSlider} />
               </Grid>
             </Grid>
           )}
         </Grid>
         <Grid
-          item
+          container
+          item={windowSize.width > 750 ? true : undefined}
           className={classes.mainBody}
-          data-testId="homepageMainBody"
-          xs={6}
+          data-testid="homepageMainBody"
+          xs={windowSize.width > 750 ? 6 : undefined}
         >
           <NewCodelabz setVisibleModal={setVisibleModal} />
           <NewTutorial
@@ -236,7 +247,11 @@ function HomePage({ background = "white", textColor = "black" }) {
           <Card className={classes.card}>
             <Activity />
           </Card>
-          <Box item sx={{ display: { md: "none" } }}>
+          <Box
+            container
+            item={windowSize.width > 750 ? true : undefined}
+            sx={{ display: { md: "none" } }}
+          >
             <TagCard tags={tags} />
           </Box>
           {tutorials.map(tutorial => {
@@ -257,7 +272,7 @@ function HomePage({ background = "white", textColor = "black" }) {
               <Tabs
                 value={selectedTab}
                 onChange={handleTabChange}
-                scrollButtons="on"
+                scrollButtons="auto"
                 indicatorColor="primary"
                 textColor="primary"
                 aria-label="scrollable force tabs example"
@@ -303,18 +318,27 @@ function HomePage({ background = "white", textColor = "black" }) {
           </Box>
         </Grid>
 
-        <Grid item className={classes.sideBody} xs={3}>
+        <Grid
+          container
+          item={windowSize.width > 750 ? true : undefined}
+          className={classes.sideBody}
+          xs={windowSize.width > 750 ? 3 : undefined}
+        >
           <Grid
-            item
             container
+            item={windowSize.width > 750 ? true : undefined}
             alignContent="center"
             direction="column"
             style={{
               width: "100%"
             }}
-            data-testId="homepageTagSidebar"
+            data-testid="homepageTagSidebar"
           >
-            <Grid item style={{ minWidth: "100%" }}>
+            <Grid
+              container
+              item={windowSize.width > 750 ? true : undefined}
+              style={{ minWidth: "100%" }}
+            >
               <TagCard tags={tags} />
             </Grid>
           </Grid>
@@ -325,9 +349,13 @@ function HomePage({ background = "white", textColor = "black" }) {
             style={{
               width: "100%"
             }}
-            data-testId="homepageUpcomingEvents"
+            data-testid="homepageUpcomingEvents"
           >
-            <Grid item style={{ minWidth: "100%" }}>
+            <Grid
+              container
+              item={windowSize.width > 750 ? true : undefined}
+              style={{ minWidth: "100%" }}
+            >
               <EventsCard title={"Upcoming Events"} events={upcomingEvents} />
             </Grid>
           </Grid>
@@ -338,9 +366,13 @@ function HomePage({ background = "white", textColor = "black" }) {
             style={{
               width: "100%"
             }}
-            data-testId="homepageUsersToFollow"
+            data-testid="homepageUsersToFollow"
           >
-            <Grid item style={{ minWidth: "100%" }}>
+            <Grid
+              container
+              item={windowSize.width > 750 ? true : undefined}
+              style={{ minWidth: "100%" }}
+            >
               <UserCard title={"Who to Follow"} users={usersToFollow} />
             </Grid>
           </Grid>
@@ -356,9 +388,13 @@ function HomePage({ background = "white", textColor = "black" }) {
               border: "none",
               boxShadow: "none"
             }}
-            data-testId="homepageContributors"
+            data-testid="homepageContributors"
           >
-            <Grid item style={{ minWidth: "100%" }}>
+            <Grid
+              container
+              item={windowSize.width > 750 ? true : undefined}
+              style={{ minWidth: "100%" }}
+            >
               <UserCard title={"Contributors"} users={contributors} />
             </Grid>
           </Grid>
@@ -370,9 +406,13 @@ function HomePage({ background = "white", textColor = "black" }) {
             style={{
               width: "100%"
             }}
-            data-testId="homepagePopularEventSidebar"
+            data-testid="homepagePopularEventSidebar"
           >
-            <Grid item style={{ minWidth: "100%" }}>
+            <Grid
+              container
+              item={windowSize.width > 750 ? true : undefined}
+              style={{ minWidth: "100%" }}
+            >
               <EventsCard title={"Popular Events"} events={upcomingEvents} />
             </Grid>
           </Grid>

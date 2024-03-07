@@ -41,14 +41,14 @@ const TagCard = props => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root} data-testId="TagsCard">
+    <div className={classes.root} data-testid="TagsCard">
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography
             variant="h6"
             component="div"
             gutterBottom
-            data-testId="TagsCardTitle"
+            data-testid="TagsCardTitle"
           >
             Popular Tags
           </Typography>
@@ -61,7 +61,7 @@ const TagCard = props => {
                   label={tag}
                   id={index}
                   className={classes.chip}
-                  data-testId={index === 0 ? "TagsChip" : ""}
+                  data-testid={index === 0 ? "TagsChip" : ""}
                 />
               );
             })}
