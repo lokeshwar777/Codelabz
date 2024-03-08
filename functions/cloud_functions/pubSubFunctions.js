@@ -1,6 +1,6 @@
-const { db, rtdb, admin } = require("../auth");
+import { db, rtdb, admin } from "../auth";
 
-exports.deleteTutorialStepsHandler = async () => {
+export async function deleteTutorialStepsHandler() {
   console.log("starting of deleting tutorial steps");
 
   const delete_steps = await rtdb.ref(`/delete_steps`).once("value");
@@ -42,4 +42,4 @@ exports.deleteTutorialStepsHandler = async () => {
   } else {
     console.log("no steps to delete");
   }
-};
+}

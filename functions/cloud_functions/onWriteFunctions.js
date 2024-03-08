@@ -1,6 +1,6 @@
-const { rtdb } = require("../auth");
+import { rtdb } from "../auth";
 
-exports.registerUserHandleHandler = async change => {
+export async function registerUserHandleHandler(change) {
   try {
     const newValue = change.after.get("handle");
     const previousValue = change.before.get("handle");
@@ -17,4 +17,4 @@ exports.registerUserHandleHandler = async change => {
   } catch (e) {
     return console.log(e);
   }
-};
+}

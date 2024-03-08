@@ -1,13 +1,11 @@
-const { db, rtdb, admin } = require("../auth");
-
-exports.sendVerificationEmailHandler = async user => {
+import { db, rtdb, admin } from "../auth";
+export async function sendVerificationEmailHandler(user) {
   try {
     const { uid, email, emailVerified } = user;
 
     if (!email) {
       return console.log(`Email is undefined for user: ${uid}`);
     }
-
     if (!emailVerified) {
       const verificationLink = await admin
         .auth()
@@ -21,6 +19,7 @@ exports.sendVerificationEmailHandler = async user => {
           }
         }
       });
+
       return console.log(`Verification email sent to ${email}`);
     } else {
       return console.log(`${email} is already verified`);
@@ -28,9 +27,9 @@ exports.sendVerificationEmailHandler = async user => {
   } catch (e) {
     return console.log(e.message);
   }
-};
+}
 
-exports.createOrganizationHandler = async (snapshot, context) => {
+export async function createOrganizationHandler(snapshot, context) {
   try {
     const { org_handle } = context.params;
 
@@ -95,4 +94,4 @@ exports.createOrganizationHandler = async (snapshot, context) => {
   } catch (e) {
     return console.log(e);
   }
-};
+}

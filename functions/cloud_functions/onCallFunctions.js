@@ -1,11 +1,11 @@
-const functions = require("firebase-functions");
-const { db, admin } = require("../auth");
+import { https } from "firebase-functions";
+import { db, admin } from "../auth";
 
-exports.resendVerificationEmailHandler = async data => {
+export const resendVerificationEmailHandler = async data => {
   try {
     if (!data || !data.email) {
       console.log("Email is not defined");
-      throw new functions.https.HttpsError(
+      throw new https.HttpsError(
         "invalid-argument",
         "Email is required for the operation"
       );
@@ -16,7 +16,7 @@ exports.resendVerificationEmailHandler = async data => {
 
     if (!userRecord) {
       console.log(`The given email: ${email} does not exist.`);
-      throw new functions.https.HttpsError(
+      throw new https.HttpsError(
         "not-found",
         "The user does not exist."
       );
@@ -24,7 +24,7 @@ exports.resendVerificationEmailHandler = async data => {
 
     if (userRecord && userRecord.emailVerified === true) {
       console.log(`The given email: ${email} is already verified.`);
-      throw new functions.https.HttpsError(
+      throw new https.HttpsError(
         "aborted",
         "The given email is already verified."
       );
@@ -48,7 +48,7 @@ exports.resendVerificationEmailHandler = async data => {
     return console.log(`Verification email sent to ${email}`);
   } catch (error) {
     console.log(error);
-    throw new functions.https.HttpsError(
+    throw new https.HttpsError(
       "invalid-argument",
       error.message,
       error
@@ -56,20 +56,20 @@ exports.resendVerificationEmailHandler = async data => {
   }
 };
 
-exports.sendPasswordUpdateEmailHandler = async (data, context) => {
+export const sendPasswordUpdateEmailHandler = async (data, context) => {
   try {
     const { email } = data;
 
     if (!context.auth) {
       console.log("The request must be authenticated.");
-      throw new functions.https.HttpsError(
+      throw new https.HttpsError(
         "unauthenticated",
         "The request does not have valid authentication credentials for the operation."
       );
     }
     if (!email) {
       console.log("Email is not provided");
-      throw new functions.https.HttpsError(
+      throw new https.HttpsError(
         "invalid-argument",
         "Email is required for this operation"
       );
@@ -83,7 +83,7 @@ exports.sendPasswordUpdateEmailHandler = async (data, context) => {
       console.log(
         `The given email: ${email} does not match with auth records: ${userRecordEmail}`
       );
-      throw new functions.https.HttpsError(
+      throw new https.HttpsError(
         "invalid-argument",
         "The provided email does not match with the authentication records."
       );
@@ -100,6 +100,6 @@ exports.sendPasswordUpdateEmailHandler = async (data, context) => {
     return console.log("Password update email sent");
   } catch (error) {
     console.log(error.message);
-    throw new functions.https.HttpsError("aborted", error.message, error);
+    throw new https.HttpsError("aborted", error.message, error);
   }
 };

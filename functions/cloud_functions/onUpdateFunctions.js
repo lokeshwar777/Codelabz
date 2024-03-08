@@ -1,10 +1,10 @@
-const { db, admin } = require("../auth");
-const _ = require("lodash");
+import { db, admin } from "../auth";
+import { omit, difference } from "lodash";
 
-exports.addOrgUserHandler = async (change, context) => {
+export async function addOrgUserHandler(change, context) {
   try {
-    const newValue = _.omit(change.after.data(), ["createdAt", "updatedAt"]);
-    const previousValue = _.omit(change.before.data(), [
+    const newValue = omit(change.after.data(), ["createdAt", "updatedAt"]);
+    const previousValue = omit(change.before.data(), [
       "createdAt",
       "updatedAt"
     ]);
@@ -18,7 +18,7 @@ exports.addOrgUserHandler = async (change, context) => {
      * addedUser = [3]
      * @type {array<string>}
      */
-    const addedUser = _.difference(newUsersList, previousUsersList);
+    const addedUser = difference(newUsersList, previousUsersList);
 
     //check if the new array has removed user
     /**example
@@ -27,7 +27,7 @@ exports.addOrgUserHandler = async (change, context) => {
      * removedUser = [3]
      * @type {array<string>}
      */
-    const removedUser = _.difference(previousUsersList, newUsersList);
+    const removedUser = difference(previousUsersList, newUsersList);
 
     if (addedUser.length > 0) {
       await db
@@ -59,4 +59,4 @@ exports.addOrgUserHandler = async (change, context) => {
   } catch (e) {
     return console.log(e);
   }
-};
+}
