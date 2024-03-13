@@ -1,60 +1,46 @@
-name: Build and Deploy to Firebase Hosting
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - master
+      - deploy/production
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      - name: Install dependencies
-        working-directory: ./
-        run: npm install --legacy-peer-deps
-
-      - name: Build
-        working-directory: ./
-        run: npm run build
-        env:
-          VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
-          VITE_APP_FIREBASE_PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
-          VITE_APP_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_MESSAGING_SENDER_ID }}
-          VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
-          VITE_APP_FIREBASE_MEASUREMENTID: ${{ secrets.VITE_APP_FIREBASE_MEASUREMENTID }}
-          VITE_APP_FIREBASE_FCM_VAPID_KEY: ${{ secrets.VITE_APP_FIREBASE_FCM_VAPID_KEY }}
-          VITE_APP_AUTH_DOMAIN: ${{ secrets.VITE_APP_AUTH_DOMAIN }}
-          VITE_APP_DATABASE_URL: ${{secrets.VITE_APP_DATABASE_URL}}
-          SKIP_PREFLIGHT_CHECK: true
-          CI: false
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          name: build
-          path: ./build
+          node-version: 14
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Linting
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build Project
+        run:     npm run build -- --output-path=build
 
   deploy:
-    name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: build
-          path: ./build
 
-      - name: GitHub Action for Firebase
-        uses: w9jds/firebase-action@master
+    steps:
+      - name: Set up Firebase
+        uses: w9jds/firebase-action@v2
         with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
-          PROJECT_PATH: ./
+          args: use --add ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODELABZ_2CD64 }}
+
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@v2
+        with:
+          args: deploy --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODELABZ_2CD64 }}
