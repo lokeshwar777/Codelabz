@@ -101,7 +101,7 @@ export default function CardWithoutPicture({ tutorial }) {
   };
 
   return (
-    <Card className={classes.root} data-testId="codelabz">
+    <Card className={classes.root} data-testid="codelabz">
       <CardHeader
         avatar={
           <Avatar className={classes.avatar}>
@@ -119,7 +119,7 @@ export default function CardWithoutPicture({ tutorial }) {
               variant="h7"
               className={classes.inline}
               color="textPrimary"
-              data-testId="UserName"
+              data-testid="UserName"
             >
               {user?.displayName}
             </Typography>
@@ -131,7 +131,7 @@ export default function CardWithoutPicture({ tutorial }) {
                   variant="h7"
                   className={classes.inline}
                   color="textPrimary"
-                  data-testId="UserOrgName"
+                  data-testid="UserOrgName"
                 >
                   {tutorial?.owner}
                 </Typography>
@@ -144,9 +144,9 @@ export default function CardWithoutPicture({ tutorial }) {
       <Link to={`/tutorial/${tutorial?.tutorial_id}`}>
         <CardContent
           className={classes.contentPadding}
-          data-testId="codelabzDetails"
+          data-testid="codelabzDetails"
         >
-          <Typography variant="h5" color="text.primary" data-testId="Title">
+          <Typography variant="h5" color="text.primary" data-testid="Title">
             {tutorial?.title}
           </Typography>
           <Typography
@@ -154,7 +154,7 @@ export default function CardWithoutPicture({ tutorial }) {
             color="textSecondary"
             component="p"
             paragraph
-            data-testId="Description"
+            data-testid="Description"
           >
             {tutorial?.summary}
           </Typography>
@@ -173,7 +173,7 @@ export default function CardWithoutPicture({ tutorial }) {
           variant="overline"
           display="block"
           className={classes.time}
-          data-testId="Time"
+          data-testid="Time"
         >
           {"10 min"}
         </Typography>
@@ -204,16 +204,16 @@ export default function CardWithoutPicture({ tutorial }) {
             <KeyboardArrowDownIcon />
           </ToggleButton>
         </ToggleButtonGroup>
-        <IconButton aria-label="share" data-testId="CommentIcon">
+        <IconButton aria-label="share" data-testid="CommentIcon">
           <ChatOutlinedIcon />
         </IconButton>
-        <IconButton aria-label="add to favorites" data-testId="ShareIcon">
+        <IconButton aria-label="add to favorites" data-testid="ShareIcon">
           <ShareOutlinedIcon />
         </IconButton>
-        <IconButton aria-label="share" data-testId="NotifIcon">
+        <IconButton aria-label="share" data-testid="NotifIcon">
           <TurnedInNotOutlinedIcon />
         </IconButton>
-        <IconButton aria-label="share" data-testId="MoreIcon">
+        <IconButton aria-label="share" data-testid="MoreIcon">
           <MoreVertOutlinedIcon />
         </IconButton>
       </CardActions>

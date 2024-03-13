@@ -258,7 +258,7 @@ const RightMenu = ({ mode, onClick }) => {
           )
         }
         onClick={handleClick}
-        data-testId="nav-user"
+        data-testid="nav-user"
       >
         {acronym}
       </Avatar>

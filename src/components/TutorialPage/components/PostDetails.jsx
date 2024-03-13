@@ -135,20 +135,20 @@ const PostDetails = ({ details }) => {
                       </ToggleButton>
                     </ToggleButtonGroup>
                     <HashLink to={`/tutorial/${id}#comments`}>
-                      <IconButton aria-label="share" data-testId="CommentIcon">
+                      <IconButton aria-label="share" data-testid="CommentIcon">
                         <ChatOutlinedIcon />
                       </IconButton>
                     </HashLink>
                     <IconButton
                       aria-label="add to favorites"
-                      data-testId="ShareIcon"
+                      data-testid="ShareIcon"
                     >
                       <ShareOutlinedIcon />
                     </IconButton>
-                    <IconButton aria-label="share" data-testId="NotifIcon">
+                    <IconButton aria-label="share" data-testid="NotifIcon">
                       <TurnedInNotOutlinedIcon />
                     </IconButton>
-                    <IconButton aria-label="share" data-testId="MoreIcon">
+                    <IconButton aria-label="share" data-testid="MoreIcon">
                       <MoreVertOutlinedIcon />
                     </IconButton>
                   </CardActions>

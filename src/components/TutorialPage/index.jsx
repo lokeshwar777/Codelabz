@@ -76,7 +76,7 @@ function TutorialPage({ background = "white", textColor = "black" }) {
     <Box
       className={classes.wrapper}
       style={{ background: background }}
-      data-testId="tutorialpage"
+      data-testid="tutorialpage"
     >
       <Grid container className={classes.contentPart} justifyContent="center">
         <Grid item xs={2} className={classes.sideBody}>
@@ -107,7 +107,7 @@ function TutorialPage({ background = "white", textColor = "black" }) {
         <Grid
           item
           className={classes.mainBody}
-          data-testId="tutorialpageMainBody"
+          data-testid="tutorialpageMainBody"
           xs={6}
         >
           <PostDetails details={postDetails} />
@@ -119,7 +119,7 @@ function TutorialPage({ background = "white", textColor = "black" }) {
           item
           className={classes.sideBody}
           xs={3}
-          data-testId="tutorialpageSideBar"
+          data-testid="tutorialpageSideBar"
         >
           <SideBar />
         </Grid>
