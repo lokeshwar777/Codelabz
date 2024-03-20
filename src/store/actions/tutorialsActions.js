@@ -144,7 +144,10 @@ export const createTutorial =
           background_color: "#ffffff",
           text_color: "#000000",
           createdAt: firestore.FieldValue.serverTimestamp(),
-          updatedAt: firestore.FieldValue.serverTimestamp()
+          updatedAt: firestore.FieldValue.serverTimestamp(),
+          likes: 0,
+          dislikes: 0,
+          views: 0,
         });
 
         // Adds first step when a tutorial is created

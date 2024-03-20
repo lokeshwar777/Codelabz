@@ -119,8 +119,7 @@ export const getTutorialData =
         .collection("tutorials")
         .doc(tutorialID)
         .get();
-      const tutorial = data.data();
-      dispatch({ type: actions.GET_POST_DATA_SUCCESS, payload: tutorial });
+      const tutorial = { tutorial_id: tutorialID, ...data.data() };      dispatch({ type: actions.GET_POST_DATA_SUCCESS, payload: tutorial });
     } catch (e) {
       dispatch({ type: actions.GET_POST_DATA_FAIL });
       console.log(e);

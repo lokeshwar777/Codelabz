@@ -29,7 +29,7 @@ export const onlineFirebaseApp = initializeApp(firebaseConfig, "secondary");
 
 // Initialize firebase instance
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore(); // <- needed if using firestor
+export const db = firebase.firestore(); // <- needed if using firestor
 
 if (import.meta.env.VITE_APP_USE_EMULATOR) {
   firebase.firestore().useEmulator("localhost", 8080);
