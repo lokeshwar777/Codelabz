@@ -1,11 +1,10 @@
 import { Card, Grid, Typography, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import Textbox from "./Textbox";
 import Comment from "./Comment";
-import { addComment } from "../../../../store/actions/tutorialPageActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useFirebase, useFirestore } from "react-redux-firebase";
+
 const useStyles = makeStyles(() => ({
   container: {
     margin: "10px 0",
@@ -28,33 +27,23 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const CommentBox = ({ commentsArray, tutorialId }) => {
+const CommentBox = ({ commentsArray, onAddComment }) => {
   const classes = useStyles();
-  const firestore = useFirestore();
-  const firebase = useFirebase();
-  const dispatch = useDispatch();
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState(commentsArray);
   const [currCommentCount, setCurrCommentCount] = useState(3);
-  const handleSubmit = comment => {
-    const commentData = {
-      content: comment,
-      replyTo: tutorialId,
-      tutorial_id: tutorialId,
-      createdAt: firestore.FieldValue.serverTimestamp(),
-      userId: "codelabzuser"
-    };
-    addComment(commentData)(firebase, firestore, dispatch);
-  };
 
   useEffect(() => {
     setComments(commentsArray?.slice(0, currCommentCount));
   }, [currCommentCount, commentsArray]);
 
-  console.log(commentsArray, comments, currCommentCount);
-
   const increaseCommentCount = () => {
     setCurrCommentCount(state => state + 3);
   };
+CommentBox.propTypes = {
+   commentsArray: PropTypes.arrayOf(PropTypes.any),
+   onAddComment: PropTypes.func.isRequired,
+   tutorialId: PropTypes.string.isRequired,
+};
 
   return (
     <Card
@@ -65,17 +54,17 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
       <Typography variant="h5" sx={{ fontWeight: "600" }}>
         Comments({commentsArray?.length || 0})
       </Typography>
-      <Textbox handleSubmit={handleSubmit} />
+      <Textbox handleSubmit={onAddComment} />
       <Grid container rowSpacing={2}>
         {comments?.map((id, index) => {
           return (
-            <Grid item xs={12}>
-              <Comment id={id} key={index} />
+            <Grid item xs={12} key={index}>
+              <Comment id={id} />
             </Grid>
           );
         })}
         <Grid item container justifyContent="center">
-          {comments?.length != commentsArray?.length && (
+          {comments?.length < commentsArray?.length && (
             <Button
               sx={{ textTransform: "none", fontSize: "14px" }}
               onClick={increaseCommentCount}

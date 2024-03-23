@@ -20,6 +20,7 @@ import React, {
   useMemo,
   useRef
 } from "react";
+import PropTypes from 'prop-types';
 import Textbox from "./Textbox";
 import User from "../UserDetails";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,7 +61,7 @@ const Comment = ({ id }) => {
   const firestore = useFirestore();
   const firebase = useFirebase();
   const dispatch = useDispatch();
-  useState(() => {
+  useEffect(() => {
     getCommentData(id)(firebase, firestore, dispatch);
   }, [id]);
 
@@ -87,6 +88,9 @@ const Comment = ({ id }) => {
   const handleIncrement = () => {
     setCount(count + 1);
   };
+Comment.propTypes = {
+   id: PropTypes.string.isRequired,
+};
 
   const handleDecrement = () => {
     setCount(count - 1);
@@ -165,7 +169,7 @@ const Comment = ({ id }) => {
           <div style={{ margin: "10px 0 0 10px" }}>
             <Textbox type="reply" handleSubmit={handleSubmit} />
             {replies?.replies.map((id, index) => {
-              return <Comment id={id} />;
+              return <Comment key={index} id={id} />;
             })}
           </div>
         )}
