@@ -12,7 +12,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const TutorialCard = ({
-  tutorialData: { tutorial_id, title, summary, icon, owner },
+  tutorialData: { tutorial_id, title, summary, featured_image, owner },
   loading
 }) => {
   return (
@@ -22,7 +22,7 @@ const TutorialCard = ({
           component="img"
           alt="Tutorial icon"
           height="140"
-          image={icon ? icon : TutorialImg}
+          image={featured_image ? featured_image : TutorialImg}
           title="Tutorial icon"
         />
 

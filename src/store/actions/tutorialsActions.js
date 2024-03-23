@@ -122,7 +122,7 @@ export const createTutorial =
   tutorialData => async (firebase, firestore, dispatch, history) => {
     try {
       dispatch({ type: actions.CREATE_TUTORIAL_START });
-      const { title, summary, owner, created_by, is_org } = tutorialData;
+      const { title, summary, owner, created_by, is_org, featured_image } = tutorialData;
 
       const setData = async () => {
         const document = firestore.collection("tutorials").doc();
@@ -138,7 +138,7 @@ export const createTutorial =
           summary,
           title,
           tutorial_id: documentID,
-          featured_image: "",
+          featured_image: featured_image || "",
           icon: "",
           url: "",
           background_color: "#ffffff",

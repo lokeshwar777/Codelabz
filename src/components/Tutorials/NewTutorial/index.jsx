@@ -14,11 +14,12 @@ import Avatar from "@mui/material/Avatar";
 import { makeStyles } from "@mui/styles";
 import { deepPurple } from "@mui/material/colors";
 import { Typography } from "@mui/material";
-import ImageIcon from "@mui/icons-material/Image";
 import DescriptionIcon from "@mui/icons-material/Description";
 import MovieIcon from "@mui/icons-material/Movie";
 import Select from "react-select";
 import { common } from "@mui/material/colors";
+import ImageUploadButton from "../../ui-helpers/buttons/ImageUploadButton";
+import { set } from "lodash";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,10 +44,12 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [formValue, setformValue] = useState({
     title: "",
     summary: "",
-    owner: ""
+    owner: "",
+    featured_image: ""
   });
 
   const loadingProp = useSelector(
@@ -117,7 +120,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
     setVisible(viewModal);
   }, [viewModal]);
 
-  const onSubmit = formData => {
+  const onSubmit = async formData => {
     formData.preventDefault();
     const tutorialData = {
       ...formValue,
@@ -125,8 +128,19 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
       is_org: userHandle !== formValue.owner,
       completed: false
     };
-    console.log(tutorialData);
-    createTutorial(tutorialData)(firebase, firestore, dispatch, history);
+    console.log(
+      `formValue is ${formValue} and tutorialData is ${tutorialData}`
+    );
+    try {
+      await createTutorial(tutorialData)(
+        firebase,
+        firestore,
+        dispatch,
+        history
+      );
+    } catch (error) {
+      console.error("Error creating tutorial:", error);
+    }
   };
 
   const onOwnerChange = value => {
@@ -143,6 +157,15 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleImageChange = url => {
+    console.log("URL is ", url);
+    setformValue(prev => ({
+      ...prev,
+      featured_image: url
+    }));
+    setIsUploading(false);
   };
 
   const classes = useStyles();
@@ -225,10 +248,11 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             onChange={e => handleChange(e)}
             style={{ marginBottom: "2rem" }}
           />
-
-          <IconButton>
-            <ImageIcon />
-          </IconButton>
+          <ImageUploadButton
+            isUploading={isUploading}
+            setIsUploading={setIsUploading}
+            onImageUpload={handleImageChange}
+          />
           <IconButton>
             <MovieIcon />
           </IconButton>
@@ -263,6 +287,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
                   }
                 }}
                 disabled={
+                  isUploading ||
                   formValue.title === "" ||
                   formValue.summary === "" ||
                   formValue.owner === ""
