@@ -50,11 +50,11 @@ const UserElement = ({ user, index, useStyles }) => {
           setIcon(false);
         }}
         data-testid={index == 0 ? "UserAdd" : ""}
-        sx={
-          icon && {
+        sx={{
+          ...(icon && {
             cursor: "pointer"
-          }
-        }
+          })
+        }}
       >
         <img src={icon ? AddUser : CheckUser} />
       </Box>
