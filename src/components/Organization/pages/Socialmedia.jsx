@@ -16,7 +16,7 @@ function Socialmedia() {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <Grid item spacing={3} data-testid="organization-socialmedia-page">
+      <Grid item container spacing={3} data-testid="organization-socialmedia-page">
         <Typography className={classes.heading}>Social Media</Typography>
         <Orgsocial />
       </Grid>
