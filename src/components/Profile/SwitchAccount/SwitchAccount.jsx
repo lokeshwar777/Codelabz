@@ -138,8 +138,10 @@ export default function SwitchAccount({
                   >
                     {/* dropdown options for switching organisations */}
                     <option value="">Organisations</option>
-                    {userOrgs.map(org => (
-                      <option value={org}>{org}</option>
+                    {userOrgs.map((org, index) => (
+                      <option key={index} value={org}>
+                        {org}
+                      </option>
                     ))}
                   </NativeSelect>
                 </FormControl>
