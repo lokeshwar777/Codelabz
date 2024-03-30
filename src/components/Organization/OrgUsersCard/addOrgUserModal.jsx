@@ -123,7 +123,7 @@ const AddOrgUserModal = ({ currentOrgHandle }) => {
         id="Search"
         autoComplete="off"
         onChange={e => setHandle(e.target.innerHTML)}
-        helperText={handleValidateError ? handleValidateErrorMessage : null}
+        helpertext={handleValidateError ? handleValidateErrorMessage : null}
         options={users}
         getOptionLabel={option => option.title}
         style={{ width: "100%" }}

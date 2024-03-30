@@ -341,7 +341,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                     placeholder={displayName || "User Name"}
                     value={name}
                     onChange={event => onChangeName(event.target.value)}
-                    helperText={
+                    helpertext={
                       nameValidateError ? nameValidateErrorMessage : null
                     }
                     fullWidth
@@ -364,7 +364,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                     placeholder="User Handle"
                     value={handle}
                     onChange={event => onChangeHandle(event.target.value)}
-                    helperText={
+                    helpertext={
                       handleValidateError ? handleValidateErrorMessage : null
                     }
                     fullWidth
@@ -485,7 +485,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       placeholder="Organiztion Name"
                       value={orgName}
                       onChange={event => onChangeOrgName(event.target.value)}
-                      helperText={
+                      helpertext={
                         orgNameValidateError
                           ? orgNameValidateErrorMessage
                           : null
@@ -512,7 +512,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       placeholder="Organiztion Handle"
                       value={orgHandle}
                       onChange={event => onChangeOrgHandle(event.target.value)}
-                      helperText={
+                      helpertext={
                         orgHandleValidateError
                           ? orgHandleValidateErrorMessage
                           : null
@@ -591,7 +591,7 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       placeholder="Organization Website"
                       value={orgWebsite}
                       onChange={event => onChangeOrgWebsite(event.target.value)}
-                      helperText={
+                      helpertext={
                         orgWebsiteValidateError
                           ? orgWebsiteValidateErrorMessage
                           : null

@@ -138,7 +138,7 @@ const Login = ({
             placeholder="mail@codelabz.com"
             value={email}
             onChange={onChangeEmail}
-            helperText={emailValidateError ? emailValidateErrorMessage : null}
+            helpertext={emailValidateError ? emailValidateErrorMessage : null}
             fullWidth
             autoComplete="email"
             required
@@ -156,7 +156,7 @@ const Login = ({
           <TextField
             label="Password"
             variant="outlined"
-            helperText={
+            helpertext={
               passwordValidateError ? passwordValidateErrorMessage : null
             }
             className="password"

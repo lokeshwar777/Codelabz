@@ -210,7 +210,7 @@ const UserForm = () => {
               htmlFor="bootstrap-input"
               style={{ color: "#000", fontSize: "20px" }}
               error={nameValidateError}
-              helperText={nameValidateError ? nameValidateErrorMessage : null}
+              helpertext={nameValidateError ? nameValidateErrorMessage : null}
             >
               Name
             </InputLabel>
@@ -220,7 +220,7 @@ const UserForm = () => {
               className={classes.input}
               data-testid="name"
               onChange={event => onChangeName(event.target.value)}
-              helperText={nameValidateError ? nameValidateErrorMessage : null}
+              helpertext={nameValidateError ? nameValidateErrorMessage : null}
             />
             <Typography className={classes.errorMessage}>
               {nameValidateErrorMessage}

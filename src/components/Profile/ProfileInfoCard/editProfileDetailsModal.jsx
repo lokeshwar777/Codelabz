@@ -223,7 +223,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           value={name}
           data-testid="editProfileName"
           onChange={event => onChangeName(event.target.value)}
-          helperText={nameValidateError ? nameValidateErrorMessage : null}
+          helpertext={nameValidateError ? nameValidateErrorMessage : null}
           fullWidth
           autoComplete="handle"
           required
@@ -260,7 +260,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           value={website}
           data-testid="editProfileWebsite"
           onChange={event => onChangeOrgWebsite(event.target.value)}
-          helperText={websiteValidateError ? websiteValidateErrorMessage : null}
+          helpertext={websiteValidateError ? websiteValidateErrorMessage : null}
           fullWidth
           autoComplete="orgWebsite"
           required
@@ -285,7 +285,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           data-testid="editProfileDescription"
           value={description}
           onChange={event => onChangeDescription(event.target.value)}
-          helperText={
+          helpertext={
             descriptionValidateError ? descriptionValidateErrorMessage : null
           }
           fullWidth
@@ -311,7 +311,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           value={facebook}
           data-testid="editProfileFacebook"
           onChange={event => onChangeFacebook(event.target.value)}
-          helperText={
+          helpertext={
             facebookValidateError ? facebookValidateErrorMessage : null
           }
           fullWidth
@@ -340,7 +340,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           placeholder="username"
           data-testid="editProfileTwitter"
           onChange={event => onChangeTwitter(event.target.value)}
-          helperText={twitterValidateError ? twitterValidateErrorMessage : null}
+          helpertext={twitterValidateError ? twitterValidateErrorMessage : null}
           fullWidth
           autoComplete="handle"
           required
@@ -367,7 +367,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           data-testid="editProfileLinkedin"
           placeholder="username"
           onChange={event => onChangeLinkedin(event.target.value)}
-          helperText={
+          helpertext={
             linkedinValidateError ? linkedinValidateErrorMessage : null
           }
           fullWidth
@@ -395,7 +395,7 @@ const EditProfileDetailsModal = ({ profileData, modelCloseCallback }) => {
           value={github}
           placeholder="username"
           onChange={event => onChangeGithub(event.target.value)}
-          helperText={githubValidateError ? githubValidateErrorMessage : null}
+          helpertext={githubValidateError ? githubValidateErrorMessage : null}
           fullWidth
           data-testid="editProfileGithub"
           autoComplete="handle"

@@ -215,7 +215,7 @@ const SignupForm = () => {
           placeholder="mail@codelabz.com"
           value={email}
           onChange={onChangeEmail}
-          helperText={emailValidateError ? emailValidateErrorMessage : null}
+          helpertext={emailValidateError ? emailValidateErrorMessage : null}
           error={emailValidateError}
           fullWidth
           data-testid="signUpEmail"
@@ -234,7 +234,7 @@ const SignupForm = () => {
         <TextField
           label="New password"
           variant="outlined"
-          helperText={
+          helpertext={
             passwordValidateError ? passwordValidateErrorMessage : null
           }
           error={passwordValidateError}
@@ -269,7 +269,7 @@ const SignupForm = () => {
         <TextField
           label="Confirm password"
           variant="outlined"
-          helperText={
+          helpertext={
             confirmPasswordValidateError
               ? confirmPasswordValidateErrorMessage
               : null
