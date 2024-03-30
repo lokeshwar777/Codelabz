@@ -29,15 +29,15 @@ const Organizations = () => {
               </TwitterIcon>
             </Box>
             <Box className={classes.organizations} style={{ margin: "1px 0" }}>
-              {OrganizationData.map(el => (
-                <Typography className={classes.organization}>
+            {OrganizationData.map((el, index) => (
+              <Typography key={index} className={classes.organization}>
                   {el.organization}
                 </Typography>
               ))}
             </Box>
             <Box className={classes.column} style={{ padding: "4px 0" }}>
-              {OrganizationData.map(el => (
-                <Typography className={classes.role}>{el.role}</Typography>
+            {OrganizationData.map((el, index) => (
+              <Typography key={index} className={classes.role}>{el.role}</Typography>
               ))}
             </Box>
           </Box>

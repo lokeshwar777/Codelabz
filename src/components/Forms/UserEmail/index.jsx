@@ -92,7 +92,7 @@ const UserEmail = () => {
               inputProps={{ "aria-label": "Without label" }}
             >
               {data.backupEmailOptions.map(email => (
-                <MenuItem value={email} data-testid="backupEmailItem">
+                <MenuItem value={email} data-testid="backupEmailItem" key={email}>
                   {email}
                 </MenuItem>
               ))}
