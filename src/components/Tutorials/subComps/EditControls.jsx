@@ -144,7 +144,7 @@ const EditControls = ({
         </Button>
 
         <Button
-          danger
+          danger="true"
           onClick={() => {
             setViewRemoveStepModal(!viewRemoveStepModal);
           }}
