@@ -99,12 +99,12 @@ function UserDashboard() {
         >
           <Box style={{ display: "flex", alignItems: "center" }}>
             {windowSize.width <= 960 && (
-              <IconButton>
-                <MenuIcon
-                  onClick={() => {
-                    toggleSlider();
-                  }}
-                ></MenuIcon>
+              <IconButton
+                onClick={() => {
+                  toggleSlider();
+                }}
+              >
+                <MenuIcon />
               </IconButton>
             )}
             <Avatar
