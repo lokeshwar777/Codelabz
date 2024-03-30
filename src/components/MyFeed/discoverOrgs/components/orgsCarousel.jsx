@@ -60,9 +60,9 @@ const OrgsCarousel = () => {
           spaceBetween={20}
           style={{ padding: "20px 20px" }}
         >
-          {launchedOrgs.map((org, i) => {
+          {launchedOrgs.map((org, index) => {
             return org == 0 ? (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <Paper variant="outlined" className={classes.root}>
                   <Skeleton
                     variant="rectangular"
@@ -75,7 +75,7 @@ const OrgsCarousel = () => {
                 </Paper>
               </SwiperSlide>
             ) : (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <Link to={`/org/${org?.org_handle}`}>
                   <Paper variant="outlined" className={classes.root}>
                     <CardActionArea>
