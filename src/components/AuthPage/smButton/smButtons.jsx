@@ -17,7 +17,7 @@ const SmButtons = () => {
     <Grid
       container
       className={classes.root}
-      data-testId="smButtons"
+      data-testid="smButtons"
       style={{
         backgroundColor: "#EFF5F5",
         borderRadius: "30px",

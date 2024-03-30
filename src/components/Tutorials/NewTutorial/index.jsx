@@ -159,7 +159,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
       }}
     >
       <div
-        data-testId="tutorialNewModal"
+        data-testid="tutorialNewModal"
         style={{
           height: "auto",
           width: "auto",
@@ -205,7 +205,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             name="title"
             variant="outlined"
             fullWidth
-            data-testId="newTutorial_title"
+            data-testid="newTutorial_title"
             id="newTutorialTitle"
             style={{ marginBottom: "2rem" }}
             onChange={e => handleChange(e)}
@@ -221,7 +221,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             placeholder="Summary of the Tutorial"
             autoComplete="summary"
             id="newTutorialSummary"
-            data-testId="newTutorial_summary"
+            data-testid="newTutorial_summary"
             onChange={e => handleChange(e)}
             style={{ marginBottom: "2rem" }}
           />

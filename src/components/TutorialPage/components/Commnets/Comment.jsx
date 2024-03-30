@@ -155,7 +155,7 @@ const Comment = ({ id }) => {
                   <KeyboardArrowDownIcon />
                 </ToggleButton>
               </ToggleButtonGroup>
-              <IconButton aria-label="share" data-testId="MoreIcon">
+              <IconButton aria-label="share" data-testid="MoreIcon">
                 <MoreVertOutlinedIcon />
               </IconButton>
             </CardActions>

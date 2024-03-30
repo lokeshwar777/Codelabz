@@ -198,7 +198,7 @@ function HomePage({ background = "white", textColor = "black" }) {
     <Card
       className={classes.wrapper}
       style={{ background: background }}
-      data-testId="homepage"
+      data-testid="homepage"
     >
       <Grid container justifyContent="center" className={classes.contentPart}>
         <Grid item xs={2} className={classes.sideBody}>
@@ -225,7 +225,7 @@ function HomePage({ background = "white", textColor = "black" }) {
         <Grid
           item
           className={classes.mainBody}
-          data-testId="homepageMainBody"
+          data-testid="homepageMainBody"
           xs={6}
         >
           <NewCodelabz setVisibleModal={setVisibleModal} />
@@ -312,7 +312,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             style={{
               width: "100%"
             }}
-            data-testId="homepageTagSidebar"
+            data-testid="homepageTagSidebar"
           >
             <Grid item style={{ minWidth: "100%" }}>
               <TagCard tags={tags} />
@@ -325,7 +325,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             style={{
               width: "100%"
             }}
-            data-testId="homepageUpcomingEvents"
+            data-testid="homepageUpcomingEvents"
           >
             <Grid item style={{ minWidth: "100%" }}>
               <EventsCard title={"Upcoming Events"} events={upcomingEvents} />
@@ -338,7 +338,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             style={{
               width: "100%"
             }}
-            data-testId="homepageUsersToFollow"
+            data-testid="homepageUsersToFollow"
           >
             <Grid item style={{ minWidth: "100%" }}>
               <UserCard title={"Who to Follow"} users={usersToFollow} />
@@ -356,7 +356,7 @@ function HomePage({ background = "white", textColor = "black" }) {
               border: "none",
               boxShadow: "none"
             }}
-            data-testId="homepageContributors"
+            data-testid="homepageContributors"
           >
             <Grid item style={{ minWidth: "100%" }}>
               <UserCard title={"Contributors"} users={contributors} />
@@ -370,7 +370,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             style={{
               width: "100%"
             }}
-            data-testId="homepagePopularEventSidebar"
+            data-testid="homepagePopularEventSidebar"
           >
             <Grid item style={{ minWidth: "100%" }}>
               <EventsCard title={"Popular Events"} events={upcomingEvents} />

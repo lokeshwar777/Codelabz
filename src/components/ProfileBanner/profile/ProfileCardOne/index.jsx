@@ -28,7 +28,7 @@ export default function ProfileCardOne({
     <>
       <div
         className={classes.profileRightTop}
-        data-testId="user_profile_card_one"
+        data-testid="user_profile_card_one"
       >
         <div className={classes.profileCover}>
           <div className={classes.profileInfo}>
@@ -37,7 +37,7 @@ export default function ProfileCardOne({
                 className={classes.profileUserImg}
                 src={profileImage}
                 alt="Avatar"
-                data-testId="user_profile_card_one_avatar"
+                data-testid="user_profile_card_one_avatar"
               />
             </div>
             <div className={classes.profileUserConnect}>
@@ -45,7 +45,7 @@ export default function ProfileCardOne({
                 <Grid item>
                   <Typography
                     className={classes.profileInfoName}
-                    data-testId="user_profile_card_one_name"
+                    data-testid="user_profile_card_one_name"
                   >
                     {name}
                   </Typography>
@@ -53,7 +53,7 @@ export default function ProfileCardOne({
                 <Grid item>
                   <Typography
                     className={classes.profileInfoStory}
-                    data-testId="user_profile_card_one_story"
+                    data-testid="user_profile_card_one_story"
                   >
                     {story}
                   </Typography>
@@ -63,7 +63,7 @@ export default function ProfileCardOne({
                     <span
                       className={classes.profileInfoData}
                       style={{ marginRight: "20px" }}
-                      data-testId="user_profile_card_one_follwerCount"
+                      data-testid="user_profile_card_one_follwerCount"
                     >
                       {followers} followers
                     </span>
@@ -72,7 +72,7 @@ export default function ProfileCardOne({
                     <span
                       className={classes.profileInfoData}
                       style={{ marginRight: "2px" }}
-                      data-testId="user_profile_card_one_followingCount"
+                      data-testid="user_profile_card_one_followingCount"
                     >
                       {following} following
                     </span>
@@ -82,11 +82,11 @@ export default function ProfileCardOne({
                   item
                   container
                   style={{ marginTop: "15px" }}
-                  data-testId="user_profile_card_one_buttonGroup"
+                  data-testid="user_profile_card_one_buttonGroup"
                 >
                   <button
                     className={classes.profileSubscribeButton}
-                    data-testId="user_profile_card_one_buttonGroup_followButton"
+                    data-testid="user_profile_card_one_buttonGroup_followButton"
                   >
                     Follow
                   </button>

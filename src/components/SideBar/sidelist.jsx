@@ -97,7 +97,7 @@ const SideList = ({
                   ? { background: "#d9f1fc", borderRadius: "100px" }
                   : {}
               }
-              data-testId={item?.dataTestId}
+              data-testid={item?.dataTestId}
             >
               {item.link && (
                 <NavLink to={item.link} className={classes.navLink}>
@@ -119,7 +119,7 @@ const SideList = ({
                       </ListItemIcon>
                     )}
                     <ListItemText
-                      data-testId={item.name}
+                      data-testid={item.name}
                       style={{
                         fontWeight:
                           item?.id && value === item?.id ? "bold" : "normal",
@@ -158,7 +158,7 @@ const SideList = ({
                     </ListItemIcon>
                   )}
                   <ListItemText
-                    data-testId={item.name}
+                    data-testid={item.name}
                     style={{
                       fontWeight:
                         item?.id && value === item?.id ? "bold" : "normal",
@@ -190,7 +190,7 @@ const SideList = ({
                     </ListItemIcon>
                   )}
                   <ListItemText
-                    data-testId={item.name}
+                    data-testid={item.name}
                     style={{
                       fontWeight:
                         item?.id && value === item?.id ? "bold" : "normal",

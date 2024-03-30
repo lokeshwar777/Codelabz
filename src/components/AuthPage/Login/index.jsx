@@ -119,7 +119,7 @@ const Login = ({
       raised
       className={`${classes.card}   `}
       style={{ background: background }}
-      data-testId="login"
+      data-testid="login"
     >
       <CardContent>
         <Typography
@@ -201,7 +201,7 @@ const Login = ({
               style={{ fontFamily: "Arial, sans-serif", fontSize: "1.5vh" }}
             >
               <Link
-                data-testId="forgotPassoword"
+                data-testid="forgotPassoword"
                 to="/forgotpassword"
                 className="login-form-forgot"
                 style={{ float: "right" }}
@@ -217,7 +217,7 @@ const Login = ({
             fullWidth
             onClick={onSubmit}
             disabled={loading}
-            data-testId="loginButton"
+            data-testid="loginButton"
             className="loginButton"
             style={{
               color: "white",
