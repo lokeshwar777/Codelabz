@@ -44,7 +44,7 @@ const EventsCard = props => {
             width: "100%"
           }}
         >
-          <Typography variant="h5" component="div" gutterBottom>
+          <Typography variant="h5" component="div" gutterbottom="true">
             {props.title}
           </Typography>
           {props.events.map(function (event, index) {
