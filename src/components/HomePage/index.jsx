@@ -236,7 +236,7 @@ function HomePage({ background = "white", textColor = "black" }) {
           <Card className={classes.card}>
             <Activity />
           </Card>
-          <Box item sx={{ display: { md: "none" } }}>
+          <Box sx={{ display: { md: "none" } }}>
             <TagCard tags={tags} />
           </Box>
           {tutorials.map(tutorial => {
