@@ -131,13 +131,12 @@ function MiniNavbar() {
               <BrandName />
             </Grid>
             <Grid item className={classes.hamburger}>
-              <IconButton>
-                {window.innerWidth > 960 && (
-                  <MenuIcon onClick={() => toggleDrawer(true)} />
-                )}
-                {window.innerWidth <= 960 && (
-                  <MenuIcon onClick={() => toggleSlider()} />
-                )}
+              <IconButton
+                onClick={() =>
+                  window.innerWidth > 960 ? toggleDrawer(true) : toggleSlider()
+                }
+              >
+                <MenuIcon />
               </IconButton>
             </Grid>
           </Grid>
