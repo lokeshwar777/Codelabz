@@ -34,7 +34,7 @@ const StepsPanel = ({
   return (
     <Box className="tutorial-steps-sider" sx={theme => ({ p: 1 })}>
       <Grid>
-        <Grid xs={24} sm={24} md={24} className="col-pad-24-s">
+        <Grid item xs={24} sm={24} md={24} className="col-pad-24-s">
           <ControlButtons
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}

@@ -38,6 +38,8 @@ const BaseTutorialsComponent = ({ owner = "", ownerName = "", users = [] }) => {
         <Grid container item>
           {index_array[0]?.tutorials?.map((tutorial, index) => (
             <Grid
+              key={index}
+              item
               xs={12}
               sm={6}
               md={3}
@@ -54,6 +56,7 @@ const BaseTutorialsComponent = ({ owner = "", ownerName = "", users = [] }) => {
           ))}
           {index_array.length === 0 && (
             <Grid
+              item
               xs={12}
               sm={6}
               md={3}

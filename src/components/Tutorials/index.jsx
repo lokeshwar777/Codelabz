@@ -177,7 +177,7 @@ const ViewTutorial = () => {
       <Grid className="row-footer-below">
         {allowEdit && (
           <Grid>
-            <Grid xs={24} sm={24} md={24}>
+            <Grid item xs={24} sm={24} md={24}>
               <EditControls
                 isPublished={tutorialData.isPublished}
                 stepPanelVisible={stepPanelVisible}
@@ -200,7 +200,7 @@ const ViewTutorial = () => {
         )}
 
         <Grid>
-          <Grid xs={24} sm={24} md={24}>
+          <Grid item xs={24} sm={24} md={24}>
             <TutorialHeading
               stepPanelVisible={stepPanelVisible}
               isDesktop={isDesktop}
@@ -252,6 +252,7 @@ const ViewTutorial = () => {
           <Grid className={classes.editorContainer}>
             <Grid className="tutorial-content" justify="center" container>
               <Grid
+                item
                 xs={24}
                 sm={24}
                 md={20}

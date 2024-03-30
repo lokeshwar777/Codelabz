@@ -77,11 +77,11 @@ const MyTutorials = () => {
   return (
     <div className="row-footer-below" data-testid="tutorialMainBody">
       <Grid container>
-        <Grid xs={12} className="mb-24">
+        <Grid item xs={12} className="mb-24">
           <Header />
         </Grid>
         {organizations && organizations.length > 0 && (
-          <Grid xs={12} className="m-24">
+          <Grid item xs={12} className="m-24">
             <OrgTutorialsComponent
               organizations={organizations}
               user={userDetails}

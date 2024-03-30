@@ -66,7 +66,7 @@ const Header = () => {
   };
   return (
     <Grid container item justify="space-between" data-testid="tutorialSearch">
-      <Grid xs={12} md={3} className="col-pad-24">
+      <Grid item xs={12} md={3} className="col-pad-24">
         <Button
           variant="contained"
           onClick={() => setVisibleModal(true)}
@@ -85,7 +85,7 @@ const Header = () => {
           onSidebarClick={e => closeModal(e)}
         />
       </Grid>
-      <Grid xs={12} md={4} className="col-pad-24">
+      <Grid item xs={12} md={4} className="col-pad-24">
         <TextField
           placeholder="Search CodeLabz by title, summary, or owner"
           onKeyUp={handleOnSearch}
@@ -100,7 +100,7 @@ const Header = () => {
         />
       </Grid>
       {viewResults && (
-        <Grid xs={12} className={"mb-24 "}>
+        <Grid item xs={12} className={"mb-24 "}>
           <SearchResultsComponent results={results} />
         </Grid>
       )}
