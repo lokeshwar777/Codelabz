@@ -152,7 +152,7 @@ const CreateOrgModal = props => {
             <Button
               key="submit"
               type="primary"
-              htmlType="submit"
+              htmltype="submit"
               loading={loading}
               onClick={e => onSubmit(e)}
             >

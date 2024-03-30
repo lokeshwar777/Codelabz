@@ -120,7 +120,7 @@ const PasswordResetForm = ({ actionCode }) => {
               />
             </FormControl>
             <FormControl>
-              <Button type="primary" htmlType="submit" block loading={loading}>
+              <Button type="primary" htmltype="submit" block loading={loading}>
                 {loading ? "Changing your password..." : "Change password"}
               </Button>
             </FormControl>

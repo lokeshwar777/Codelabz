@@ -240,7 +240,7 @@ const EditOrgDetailsModal = ({ currentOrgData, modelCloseCallback }) => {
             <Button
               key="submit"
               type="primary"
-              htmlType="submit"
+              htmltype="submit"
               loading={loading}
             >
               {loading ? "Saving..." : "Save"}
