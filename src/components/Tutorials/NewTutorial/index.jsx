@@ -181,18 +181,16 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
             width: "50%"
           }}
         >
-          <Typography>
-            <Select
-              options={organizations?.map(org => ({
-                value: org.org_handle,
-                label: org.org_name
-              }))}
-              onChange={data => {
-                onOwnerChange(data.value);
-              }}
-              id="orgSelect"
-            />
-          </Typography>
+          <Select
+            options={organizations?.map(org => ({
+              value: org.org_handle,
+              label: org.org_name
+            }))}
+            onChange={data => {
+              onOwnerChange(data.value);
+            }}
+            id="orgSelect"
+          />
         </Box>
 
         <form id="tutorialNewForm">
