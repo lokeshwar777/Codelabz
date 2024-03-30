@@ -249,7 +249,7 @@ const NewTutorial = ({ viewModal, onSidebarClick, viewCallback, active }) => {
                 variant="contained"
                 color="secondary"
                 htmltype="submit"
-                loading={loading}
+                loading={loading.toString()}
                 onClick={e => onSubmit(e)}
                 data-testid="newTutorialSubmit"
                 sx={{
