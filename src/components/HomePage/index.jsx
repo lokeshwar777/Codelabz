@@ -239,11 +239,11 @@ function HomePage({ background = "white", textColor = "black" }) {
           <Box sx={{ display: { md: "none" } }}>
             <TagCard tags={tags} />
           </Box>
-          {tutorials.map(tutorial => {
+          {tutorials.map((tutorial,index) => {
             return !tutorial?.featured_image ? (
-              <CardWithoutPicture tutorial={tutorial} />
+              <CardWithoutPicture tutorial={tutorial} key={index}/>
             ) : (
-              <CardWithPicture tutorial={tutorial} />
+              <CardWithPicture tutorial={tutorial} key={index} />
             );
           })}
           <Box
