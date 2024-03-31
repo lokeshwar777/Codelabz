@@ -111,7 +111,9 @@ export default function CardWithPicture({ tutorial }) {
       <Link to={`/tutorial/${tutorial?.tutorial_id}`}>
         <CardMedia
           className={classes.media}
-          image={tutorial?.featured_image}
+          image={
+            tutorial?.featured_image || "src/assets/images/tutorialCard.png"
+          }
           title="code"
           data-testid="Image"
         />
