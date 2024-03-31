@@ -97,8 +97,8 @@ const AddNewStepModal = ({
       data-testid={"newStepModal"}
       open={visible}
       onClose={() => viewCallback()}
-      onOk={() => viewCallback()}
-      footer={false}
+      // onOk={() => viewCallback()}
+      footer="false"
       destroyOnClose={true}
       maskClosable={false}
       style={{
@@ -155,7 +155,7 @@ const AddNewStepModal = ({
             variant="contained"
             color="primary"
             data-testid={"newStepSubmitButton"}
-            loading={loading}
+            loading={loading.toString()}
           >
             {loading ? "Creating..." : "Create"}
           </Button>
