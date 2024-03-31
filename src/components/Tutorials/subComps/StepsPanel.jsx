@@ -75,7 +75,7 @@ const StepsPanel = ({
                   }}
                 >
                   {step.title}
-                  {step.visibility}
+                  {step.visibility && <>{step.visibility}</>}
                 </StepButton>
               </Step>
             );
