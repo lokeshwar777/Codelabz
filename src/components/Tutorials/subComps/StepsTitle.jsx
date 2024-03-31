@@ -115,13 +115,13 @@ const StepsTitle = ({ owner, tutorial_id }) => {
 
   return (
     <Grid>
-      <Grid xs={24}>
+      <Grid item xs={24}>
         <form>
           <Grid style={{ width: "100%" }}>
-            <Grid xs={24} md={19}>
+            <Grid item xs={24} md={19}>
               <Input
                 onChange={e => setNewStepTitle(e.target.value)}
-                value={newStepTitle}
+                value={newStepTitle || ""}
                 onBlur={setStepTitle}
                 placeholder="Title of the step"
                 className="tutorial-title-input"
@@ -131,10 +131,10 @@ const StepsTitle = ({ owner, tutorial_id }) => {
                 data-testid={"stepTitleInput"}
               />
             </Grid>
-            <Grid xs={24} md={5}>
+            <Grid item xs={24} md={5}>
               <Input
                 onChange={e => setNewStepTime(parseInt(e.target.value) || 1)}
-                value={newStepTime}
+                value={newStepTime || 1}
                 onBlur={setStepTime}
                 placeholder="Time"
                 style={{ width: "100%" }}
