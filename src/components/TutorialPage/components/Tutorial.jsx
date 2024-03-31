@@ -21,9 +21,7 @@ const Tutorial = ({ steps }) => {
               <Typography sx={{ fontWeight: "600" }}>
                 {i + 1 + ". " + step.title}
               </Typography>
-              <Typography className="content">
-                <HtmlTextRenderer html={step.content} />
-              </Typography>
+              <HtmlTextRenderer html={step.content} className="content" />
             </Box>
           );
         })}
