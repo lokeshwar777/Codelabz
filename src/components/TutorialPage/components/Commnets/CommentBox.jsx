@@ -69,8 +69,8 @@ const CommentBox = ({ commentsArray, tutorialId }) => {
       <Grid container rowSpacing={2}>
         {comments?.map((id, index) => {
           return (
-            <Grid item xs={12}>
-              <Comment id={id} key={index} />
+            <Grid item xs={12} key={index}>
+              <Comment id={id}  />
             </Grid>
           );
         })}

@@ -87,8 +87,8 @@ const PostDetails = ({ details }) => {
                 <Grid item>
                   <Typography sx={{ fontWeight: "700", fontSize: "1.2rem" }}>
                     {details?.title}
-                    {details?.tag?.map(tag => (
-                      <Chip
+                    {details?.tag?.map((tag, index) => (
+                    <Chip key={index}
                         label={tag}
                         variant="outlined"
                         className={classes.chip}

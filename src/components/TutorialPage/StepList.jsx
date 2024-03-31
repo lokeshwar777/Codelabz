@@ -90,7 +90,7 @@ const StepList = ({
         {menuItems.map(function (item, index) {
           return (
             <div
-              key="menu-items"
+              key={item.id || index}
               style={
                 item.id == location.href.split("#")[1]
                   ? { background: "#d9f1fc", borderRadius: "100px" }

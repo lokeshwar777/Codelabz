@@ -416,10 +416,10 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                     <div>
                       {filteredData.length !== 0 && (
                         <div className="dataOutput">
-                          {filteredData.map(item => {
+                          {filteredData.map((item,index) => {
                             return (
-                              <div
-                                onClick={e => {
+                              <div key={index}
+                                onClick={() => {
                                   setCountry(item.name);
                                   setCountrySearch("");
                                 }}
@@ -564,10 +564,11 @@ const Dashboard = ({ background = "white", textColor = "black" }) => {
                       <div>
                         {orgFilteredData.length !== 0 && (
                           <div className="dataOutput">
-                            {orgFilteredData.map(item => {
-                              return (
-                                <div
-                                  onClick={e => {
+                            {orgFilteredData.map((item,index) => {
+                            return (
+                              <div
+                              key={index}
+                              onClick={() => {
                                     setOrgCountry(item.name);
                                     setOrgCountrySearch("");
                                   }}

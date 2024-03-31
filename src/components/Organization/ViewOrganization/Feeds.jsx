@@ -50,8 +50,8 @@ function Feeds() {
         />
       </Box>
       <Grid container spacing={3}>
-        {userList.persons.map(person => (
-          <Grid item xs={12}>
+      {userList.persons.map((person, index) => (
+        <Grid item xs={12} key={index}>
             <CardWithoutPicture
               className={classes.postCard}
               name={person.name}

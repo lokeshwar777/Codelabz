@@ -13,6 +13,7 @@ const Tabs = ({ children, onSelect }) => {
       {children.map((element, index) => {
         return (
           <div
+            key={index}
             onClick={() => onSelectedTab(index)}
             className={selectedTab === index ? "tab active" : "tab"}
           >

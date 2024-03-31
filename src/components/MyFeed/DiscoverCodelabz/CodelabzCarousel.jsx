@@ -101,9 +101,9 @@ const CodelabzCarousel = ({ sortBy }) => {
           spaceBetween={20}
           style={{ padding: "20px 20px" }}
         >
-          {tutorials.map((tutorial, i) => {
+          {tutorials.map((tutorial, index) => {
             return tutorial == 0 ? (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <Paper variant="outlined" className={classes.root}>
                   <Skeleton
                     variant="rectangular"
@@ -116,7 +116,7 @@ const CodelabzCarousel = ({ sortBy }) => {
                 </Paper>
               </SwiperSlide>
             ) : (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <Link to={`/tutorial/${tutorial?.tutorial_id}`}>
                   <Paper variant="outlined" className={classes.root}>
                     <CardActionArea>

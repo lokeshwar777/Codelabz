@@ -79,7 +79,7 @@ const Carousel = () => {
           {launchedOrgs &&
             launchedOrgs.map((org, index) => {
               return (
-                <div>
+                <div key={index}>
                   <Card
                     className={classes.root}
                     style={{

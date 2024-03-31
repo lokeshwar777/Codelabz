@@ -14,8 +14,8 @@ const SearchResultsComponent = ({ results }) => {
         </Grid>
         <Divider variant="middle" />
         {results.map((tutorial, index) => (
-          <Grid xs={12} sm={6} md={3} lg={2} xl={2} className="pr-24">
-            <TutorialCard key={index} tutorialData={tutorial} loading={false} />
+        <Grid key={index} xs={12} sm={6} md={3} lg={2} xl={2} className="pr-24">
+          <TutorialCard tutorialData={tutorial} loading={false} />
           </Grid>
         ))}
         {results.length === 0 && "No CodeLabz with the given query"}

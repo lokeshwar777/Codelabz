@@ -34,7 +34,7 @@ const FooterLinks = props => {
       <CardContent>
         {props.elements.map(function (el, index) {
           return (
-            <a href={el.link}>
+            <a href={el.link} key={index}>
               <Chip
                 size="small"
                 label={el.name}

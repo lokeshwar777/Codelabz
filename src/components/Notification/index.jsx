@@ -1,3 +1,4 @@
+import React from 'react';
 import { Grid, Card } from "@mui/material";
 import SideBar from "../SideBar";
 import EventsCard from "../CardTabs/Events";

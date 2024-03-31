@@ -91,8 +91,8 @@ const UserEmail = () => {
               displayEmpty
               inputProps={{ "aria-label": "Without label" }}
             >
-              {data.backupEmailOptions.map(email => (
-                <MenuItem value={email} data-testid="backupEmailItem" key={email}>
+              {data.backupEmailOptions.map((email, index) => (
+                <MenuItem value={email} data-testid="backupEmailItem" key={index}>
                   {email}
                 </MenuItem>
               ))}
