@@ -7,7 +7,7 @@ export const Input = styled(InputBase)(({ theme }) => ({
     marginTop: theme.spacing(3)
   },
   "& .MuiInputBase-input": {
-    borderRadius: 4,
+    // borderRadius: 4,
     position: "relative",
     backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#F9F9F9",
     border: "1px solid #ced4da",
