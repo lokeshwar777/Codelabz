@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # Define the target package ecosystem
+  - package-ecosystem: "npm"
+    # Specify the directory where dependency files are located
+    directory: "/"
+    # Schedule automated updates to run daily
+    schedule:
+      interval: "daily"
+    # Labels to apply to Dependabot PRs
+    labels:
+      - "dependencies"
+    # Specify the target branch for PRs
+    target-branch: "development"
+    # Customize commit message prefix
+    commit-message:
+      prefix: "chore(deps):"
