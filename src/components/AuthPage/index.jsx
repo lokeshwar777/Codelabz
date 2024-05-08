@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import React, { useEffect, useState } from "react";
-import Fade from "react-reveal/Fade";
+import { Fade } from "react-awesome-reveal";
 import { UserIsNotAuthenticated } from "../../auth";
 import ForgotPassword from "./ForgotPassword";
 import Login from "./Login";

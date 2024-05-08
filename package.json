@@ -59,7 +59,7 @@
     "react-redux": "^7.2.1",
     "react-redux-firebase": "^3.7.0",
     "react-responsive": "^8.1.0",
-    "react-reveal": "^1.2.2",
+    "react-awesome-reveal": "^4.2.10",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.4.3",
     "react-select": "^5.7.0",

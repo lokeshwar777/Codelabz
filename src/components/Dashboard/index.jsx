@@ -32,7 +32,7 @@ import { makeStyles } from "@mui/styles";
 import countryList from "../../helpers/countryList";
 import orgUser from "../../assets/images/org-user.svg";
 import profileUser from "../../assets/images/profile-user.svg";
-import Fade from "react-reveal/Fade";
+import { Fade } from "react-awesome-reveal";
 import "../../css/Searchbar/searchbar.css";
 
 import {
