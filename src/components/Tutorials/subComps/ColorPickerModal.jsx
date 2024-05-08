@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import { ChromePicker } from "react-color";
 import Grid from "@mui/material/Grid";
 import Modal from "@mui/material/Modal";
-import { Panel as ColorPickerPanel } from "rc-color-picker";
-import "rc-color-picker/assets/index.css";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { useDispatch } from "react-redux";
 import { setTutorialTheme } from "../../../store/actions";
@@ -32,11 +31,11 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
   };
 
   const updateTextColor = color => {
-    setTextColor(color.color);
+    setTextColor(color.hex);
   };
 
   const updateBackgroundColor = color => {
-    setBgColor(color.color);
+    setBgColor(color.hex);
   };
 
   return (
@@ -62,10 +61,10 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
             >
               <h4 className="mb-8">Text Color</h4>
               <div>
-                <ColorPickerPanel
-                  enableAlpha={false}
+                <ChromePicker
+                  disableAlpha={true}
+                  color={textColor}
                   onChange={updateTextColor}
-                  mode="RGB"
                 />
               </div>
             </Grid>
@@ -77,11 +76,10 @@ const ColorPickerModal = ({ visible, visibleCallback, tutorial_id, owner }) => {
             >
               <h4 className="mb-8">Background Color</h4>
               <div>
-                <ColorPickerPanel
-                  enableAlpha={false}
+                <ChromePicker
+                  disableAlpha={true}
+                  color={bgColor}
                   onChange={updateBackgroundColor}
-                  mode="RGB"
-                  align="center"
                 />
               </div>
             </Grid>
