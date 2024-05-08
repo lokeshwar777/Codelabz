@@ -85,7 +85,7 @@
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-interactions": "^6.5.16",
     "@storybook/addon-links": "^6.5.16",
-    "@storybook/addon-measure": "^6.5.16",
+    "@storybook/addon-measure": "^8.0.10",
     "@storybook/builder-vite": "^0.3.0",
     "@storybook/client-api": "^6.5.16",
     "@storybook/preview-web": "^6.5.16",
