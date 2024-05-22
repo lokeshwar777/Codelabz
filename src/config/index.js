@@ -13,17 +13,16 @@ import { onMessage } from "firebase/messaging";
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN,
-  databaseURL: `https://${
-    import.meta.env.VITE_APP_FIREBASE_PROJECT_ID
-  }.firebaseio.com`,
+  databaseURL: import.meta.env.VITE_APP_DATABASE_URL,
   projectId: import.meta.env.VITE_APP_FIREBASE_PROJECT_ID,
-  storageBucket: `${import.meta.env.VITE_APP_FIREBASE_PROJECT_ID}.appspot.com`,
+  storageBucket: import.meta.env.VITE_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_APP_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENTID
 };
 
-//console.log("firebaseConfig", firebaseConfig);
+// Log firebaseConfig for debugging purposes
+console.log("firebaseConfig", firebaseConfig);
 
 export const onlineFirebaseApp = initializeApp(firebaseConfig, "secondary");
 
