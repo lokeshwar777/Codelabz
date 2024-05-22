@@ -27,17 +27,19 @@ jobs:
           echo "VITE_APP_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.VITE_APP_FIREBASE_MESSAGING_SENDER_ID }}" >> $GITHUB_ENV
           echo "VITE_APP_FIREBASE_APP_ID=${{ secrets.VITE_APP_FIREBASE_APP_ID }}" >> $GITHUB_ENV
           echo "VITE_APP_FIREBASE_MEASUREMENTID=${{ secrets.VITE_APP_FIREBASE_MEASUREMENTID }}" >> $GITHUB_ENV
+          echo "VITE_APP_DATABASE_URL=${{ secrets.VITE_APP_DATABASE_URL }}" >> $GITHUB_ENV
 
-      # Print environment variables to debug
-      - name: Print env variables
+      # Output environment variables to a log file
+      - name: Output env variables to log file
         run: |
-          echo $VITE_APP_FIREBASE_API_KEY
-          echo $VITE_APP_AUTH_DOMAIN
-          echo $VITE_APP_FIREBASE_PROJECT_ID
-          echo $VITE_APP_FIREBASE_STORAGE_BUCKET
-          echo $VITE_APP_FIREBASE_MESSAGING_SENDER_ID
-          echo $VITE_APP_FIREBASE_APP_ID
-          echo $VITE_APP_FIREBASE_MEASUREMENTID
+          echo "VITE_APP_FIREBASE_API_KEY=$VITE_APP_FIREBASE_API_KEY" >> env_log.txt
+          echo "VITE_APP_AUTH_DOMAIN=$VITE_APP_AUTH_DOMAIN" >> env_log.txt
+          echo "VITE_APP_FIREBASE_PROJECT_ID=$VITE_APP_FIREBASE_PROJECT_ID" >> env_log.txt
+          echo "VITE_APP_FIREBASE_STORAGE_BUCKET=$VITE_APP_FIREBASE_STORAGE_BUCKET" >> env_log.txt
+          echo "VITE_APP_FIREBASE_MESSAGING_SENDER_ID=$VITE_APP_FIREBASE_MESSAGING_SENDER_ID" >> env_log.txt
+          echo "VITE_APP_FIREBASE_APP_ID=$VITE_APP_FIREBASE_APP_ID" >> env_log.txt
+          echo "VITE_APP_FIREBASE_MEASUREMENTID=$VITE_APP_FIREBASE_MEASUREMENTID" >> env_log.txt
+          echo "VITE_APP_DATABASE_URL=$VITE_APP_DATABASE_URL" >> env_log.txt
 
       # Deploy to Firebase Hosting
       - uses: FirebaseExtended/action-hosting-deploy@v0
@@ -46,3 +48,7 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODELABZ_2CD64 }}
           channelId: live
           projectId: codelabz-2cd64
+
+      # Print log file for debugging
+      - name: Print log file
+        run: cat env_log.txt
