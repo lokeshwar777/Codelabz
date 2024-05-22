@@ -8,7 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Use Node.js 18 or later
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Install dependencies and build the project
       - run: npm install --legacy-peer-deps && npm run build
+
+      # Deploy to Firebase Hosting
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
