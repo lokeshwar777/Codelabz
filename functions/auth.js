@@ -1,15 +1,15 @@
-const admin = require("firebase-admin");
+import { initializeApp, credential as _credential, firestore, database } from "firebase-admin";
 
-const serviceAccount = require("./private/cl-dev-pk.json");
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+import serviceAccount from "./private/cl-dev-pk.json";
+initializeApp({
+  credential: _credential.cert(serviceAccount),
   databaseURL: process.env.VITE_APP_DATABASE_URL
 });
 
-const db = admin.firestore();
-const rtdb = admin.database();
+const db = firestore();
+const rtdb = database();
 
-module.exports = {
+export default {
   db,
   rtdb,
   admin
