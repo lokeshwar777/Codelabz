@@ -1,16 +1,40 @@
 name: Cypress Tests
-
-on: [push, pull_request]
-
+on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18]
+        containers: [1, 2]
+
+    name: E2E Testing with Cypress
+
+    env:
+      CI: false
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         with:
-          node-version: 18
-      - name: Create .env file
+          persist-credentials: false
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node }}-
+
+      - name: Create .env File
         run: |
           echo "VITE_APP_FIREBASE_API_KEY=${{ secrets.VITE_APP_FIREBASE_API_KEY }}" >> .env
           echo "VITE_APP_FIREBASE_PROJECT_ID=${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}" >> .env
@@ -24,21 +48,58 @@ jobs:
           echo "SKIP_PREFLIGHT_CHECK=true" >> .env
           echo "CI=false" >> .env
           echo "CYPRESS_PROJECT_ID=${{ secrets.CYPRESS_PROJECT_ID }}" >> .env
-      - run: cd functions && mkdir -p private
-      - name: Create cl-dev-pk.json from secret
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODELABZ_2CD64 }}" > functions/private/cl-dev-pk.json
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-      - run: cd functions && npm install --legacy-peer-deps
-      - run: npm install -g firebase-tools@13.10.2
-      - name: Run Firebase Emulator and Start Tests
-        run: firebase emulators:exec --import=./testdata --project ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }} 'npm run test'
-      - uses: actions/upload-artifact@v3
+
+      - name: Prepare Firebase Service Account
+        run: |
+          cd functions
+          mkdir -p private
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODELABZ_2CD64 }}" > private/cl-dev-pk.json
+
+      - name: Install Functions Dependencies
+        run: cd functions && npm install --legacy-peer-deps
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Start Firebase Emulators
+        run: |
+          firebase emulators:start --import=./testdata --project ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }} &
+          sleep 15
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
         with:
-          name: Cypress screenshots
-          path: /home/runner/work/Codelabz/Codelabz/cypress/screenshots
-      - uses: actions/upload-artifact@v3
+          config-file: cypress.config.js
+          group: "GitHub Actions"
+          install-command: npm install --legacy-peer-deps
+          build: npm run build
+          start: npm run dev
+          wait-on: "http://localhost:5173"
+          browser: chrome
+          record: true
+          parallel: true
+          tag: node-${{ matrix.node }}
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_INFO_BRANCH: ${{ github.ref_name }}
+
+      - name: Upload Cypress Artifacts
+        uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Cypress Videos
-          path: /home/runner/work/Codelabz/Codelabz/cypress/videos/
+          name: Cypress Artifacts
+          path: |
+            cypress/screenshots
+            cypress/videos/
+
+      - name: Print Cypress Cloud URL
+        if: always()
+        run: |
+          echo Cypress finished with: ${{ steps.cypress.outcome }}
+          echo See results at ${{ steps.cypress.outputs.resultsUrl }}
+
+      - name: Notify on Failure
+        if: failure()
+        run: echo "The workflow has failed!"
