@@ -57,9 +57,6 @@ jobs:
           mkdir -p private
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODELABZ_2CD64 }}" > private/cl-dev-pk.json
 
-      - name: Install Root Dependencies
-        run: npm install --legacy-peer-deps
-
       - name: Install Functions Dependencies
         run: cd functions && npm install --legacy-peer-deps
 
@@ -76,6 +73,7 @@ jobs:
         with:
           config-file: cypress.config.js
           group: "GitHub Actions"
+          install-command: npm install --legacy-peer-deps
           build: npm run build
           start: npm run dev
           wait-on: "http://localhost:5173"
