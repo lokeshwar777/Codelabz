@@ -11,7 +11,7 @@ export const Input = styled(InputBase)(({ theme }) => ({
     position: "relative",
     backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#fff",
     border: "1px solid #ced4da",
-    borderRadius: 6,
+    // Remove duplicate key 'borderRadius'
     fontSize: 16,
     width: "100%",
     padding: "10px 12px",
