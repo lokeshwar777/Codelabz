@@ -74,7 +74,7 @@ jobs:
           config-file: cypress.config.js
           group: "GitHub Actions"
           install-command: npm install --legacy-peer-deps
-          build: npm run build
+          # build: npm run build
           start: npm run dev
           wait-on: "http://localhost:5173"
         env:
