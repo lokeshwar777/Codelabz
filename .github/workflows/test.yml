@@ -1,38 +1,29 @@
-name: Cypress Tests
-on: [push]
+name: Cypress End-to-End Tests
+
+on: push
+
 jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        node: [22]
-        containers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-    name: E2E Testing with Cypress
-
-    env:
-      CI: false
-
+  prepare:
+    runs-on: ubuntu-22.04
+    outputs:
+      record-key-exists: ${{ steps.record-key-check.outputs.defined }}
+      uuid: ${{ steps.uuid.outputs.value }}
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+      - name: Check for record key
+        id: record-key-check
+        run: |
+          if [ "${{ secrets.CYPRESS_RECORD_KEY }}" != '' ]; then
+            echo "defined=true" >> $GITHUB_OUTPUT;
+          else
+            echo "defined=false" >> $GITHUB_OUTPUT;
+          fi
 
-      - name: Setup Node.js Environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
+      - name: Generate unique ID 💎
+        id: uuid
+        run: echo "value=sha-${{ github.sha }}-time-$(date +'%s')" >> $GITHUB_ENV
 
-      - name: Cache Node.js modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node }}-
+      - name: Print unique ID 🖨
+        run: echo "generated id ${{ steps.uuid.outputs.value }}"
 
       - name: Create .env File
         run: |
@@ -51,12 +42,11 @@ jobs:
 
       - name: Prepare Firebase Service Account
         run: |
-          cd functions
-          mkdir -p private
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODELABZ_2CD64 }}" > private/cl-dev-pk.json
+          mkdir -p functions/private
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODELABZ_2CD64 }}" > functions/private/cl-dev-pk.json
 
       - name: Install Functions Dependencies
-        run: cd functions && npm install --legacy-peer-deps
+        run: npm install --prefix functions --legacy-peer-deps
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
@@ -66,40 +56,76 @@ jobs:
           firebase emulators:start --import=./testdata --project ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }} &
           sleep 15
 
+  cypress-tests:
+    name: Run Cypress Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [18]
+        containers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node }}-
+
       - name: Run Cypress Tests
         uses: cypress-io/github-action@v6
         with:
+          browser: chrome
+          record: true
+          tag: node-${{ matrix.node }}
+          parallel: true
           config-file: cypress.config.js
           group: "GitHub Actions"
           install-command: npm install --legacy-peer-deps
           build: npm run build
           start: npm run dev
           wait-on: "http://localhost:5173"
-          browser: chrome
-          record: true
-          parallel: true
-          tag: node-${{ matrix.node }}
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_INFO_BRANCH: ${{ github.ref_name }}
 
+  print-results:
+    name: Print Cypress Cloud URL
+    needs: cypress-tests
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Print Cypress Cloud URL
+        run: |
+          echo Cypress finished with: ${{ needs.cypress-tests.outcome }}
+          echo See results at ${{ needs.cypress-tests.outputs.resultsUrl }}
+
+  handle-failure:
+    name: Handle Failure
+    if: ${{ failure() }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Upload Cypress Artifacts
         uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: Cypress Artifacts
+          name: cypress-videos-and-screenshots
           path: |
             cypress/screenshots
-            cypress/videos/
-
-      - name: Print Cypress Cloud URL
-        if: always()
-        run: |
-          echo Cypress finished with: ${{ steps.cypress.outcome }}
-          echo See results at ${{ steps.cypress.outputs.resultsUrl }}
+            cypress/videos
+          if-no-files-found: ignore
 
       - name: Notify on Failure
-        if: failure()
         run: echo "The workflow has failed!"
