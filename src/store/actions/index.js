@@ -44,6 +44,17 @@ export {
   removeUserFollower
 } from "./profileActions";
 export {
+  getTutorialFeedIdArray,
+  getTutorialFeedData,
+  getTutorialData,
+  getTutorialSteps,
+  getCommentData,
+  getCommentReply,
+  addComment,
+  getCurrentCommentLikesData,
+  setCommentUserChoice,
+} from "./tutorialPageActions";
+export {
   addNewTutorialStep,
   clearCreateTutorials,
   clearTutorialImagesReducer,
