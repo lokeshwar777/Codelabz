@@ -531,3 +531,108 @@ export const setTutorialTheme =
         console.log(e.message);
       }
     };
+
+export const getCurrentTutorialLikesData = ({ tutorial_id }) =>
+  async (dispatch, getState, { getFirebase, getFirestore }) => {
+    try {
+      const firebase = getFirebase();
+      const firestore = getFirestore();
+
+      dispatch({
+        type: actions.GET_TUTORIAL_LIKES_DATA_START,
+        payload: { tutorial_id }
+      });
+
+      const tutorialRef = firestore.collection('tutorials').doc(tutorial_id);
+      const tutorialDoc = await tutorialRef.get();
+
+      if (!tutorialDoc.exists) {
+        throw new Error('Tutorial not found');
+      }
+
+      const [upVotesSnapshot, downVotesSnapshot] = await Promise.all([
+        firestore.collection('tutorial_likes')
+          .where('tut_id', '==', tutorial_id)
+          .where('value', '==', 1)
+          .get(),
+        firestore.collection('tutorial_likes')
+          .where('tut_id', '==', tutorial_id)
+          .where('value', '==', -1)
+          .get()
+      ]);
+
+      const upVotes = upVotesSnapshot.size;
+      const downVotes = downVotesSnapshot.size;
+
+      await tutorialRef.update({ upVotes, downVotes });
+
+      const userId = firebase.auth().currentUser.uid;
+      const userChoiceDoc = await firestore
+        .collection('tutorial_likes')
+        .doc(`${tutorial_id}_${userId}`)
+        .get();
+      const userChoice = userChoiceDoc.exists
+        ? (userChoiceDoc.data().value === 1 ? 'like' : 'dislike')
+        : null;
+
+      dispatch({
+        type: actions.GET_TUTORIAL_LIKES_DATA_SUCCESS,
+        payload: { tutorial_id, upVotes, downVotes, userChoice }
+      });
+    } catch (error) {
+      dispatch({
+        type: actions.GET_TUTORIAL_LIKES_DATA_FAIL,
+        payload: { tutorial_id, error: error.message }
+      });
+    }
+  };
+
+export const setTutorialUserChoice = ({ tutorial_id, newChoice }) =>
+  async (dispatch, getState, { getFirebase, getFirestore }) => {
+    try {
+      const firebase = getFirebase();
+      const firestore = getFirestore();
+
+      dispatch({
+        type: actions.SET_TUTORIAL_USER_CHOICE_START,
+        payload: { tutorial_id }
+      });
+
+      const userId = firebase.auth().currentUser.uid;
+      if (!userId) {
+        throw new Error('User not authenticated');
+      }
+
+      const tutorialRef = firestore.collection('tutorials').doc(tutorial_id);
+      const userChoiceRef = firestore
+        .collection('tutorial_likes')
+        .doc(`${tutorial_id}_${userId}`);
+      const tutorialDoc = await tutorialRef.get();
+
+      if (!tutorialDoc.exists) {
+        throw new Error('Tutorial not found');
+      }
+
+      const batch = firestore.batch();
+
+      if (newChoice) {
+        const value = newChoice === "like" ? 1 : -1;
+        batch.set(userChoiceRef, { uid: userId, tut_id: tutorial_id, value }, { merge: true });
+      } else {
+        batch.delete(userChoiceRef);
+      }
+
+      await batch.commit();
+
+      dispatch({
+        type: actions.SET_TUTORIAL_USER_CHOICE_SUCCESS,
+        payload: { tutorial_id, userChoice: newChoice }
+      });
+    } catch (error) {
+      dispatch({
+        type: actions.SET_TUTORIAL_USER_CHOICE_FAIL,
+        payload: { tutorial_id, error: error.message }
+      });
+    }
+  };
+

@@ -52,6 +52,7 @@ export {
   getCurrentStepContentFromFirestore,
   getCurrentTutorialData,
   getOrgTutorialsBasicData,
+  getCurrentTutorialLikesData,
   getUserTutorialsBasicData,
   hideUnHideStep,
   publishUnpublishTutorial,
@@ -62,6 +63,7 @@ export {
   setCurrentStepNo,
   setCurrentStepContent,
   setTutorialTheme,
+  setTutorialUserChoice,
   updateStepTime,
   updateStepTitle,
   uploadTutorialImages
