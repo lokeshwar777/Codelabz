@@ -4,11 +4,13 @@ import dataReducer from "./dataReducer";
 import createReducer from "./createReducer";
 import currentReducer from "./currentReducer";
 import imageReducer from "./imageReducer";
+import likeReducer from "./likeReducer";
 
 export default combineReducers({
   editor: editorReducer,
   data: dataReducer,
   create: createReducer,
   current: currentReducer,
-  images: imageReducer
+  images: imageReducer,
+  likes: likeReducer,
 });
