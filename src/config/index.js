@@ -1,7 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import "firebase/compat/database"; // <- needed if using firebase rtdb
-import "firebase/compat/firestore"; // <- needed if using firestore
+import "firebase/compat/database";
+import "firebase/compat/firestore";
 import "firebase/compat/storage";
 import "firebase/compat/functions";
 import "firebase/compat/analytics";
@@ -13,42 +13,44 @@ import { onMessage } from "firebase/messaging";
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN,
-  databaseURL: `https://${import.meta.env.VITE_APP_FIREBASE_PROJECT_ID
-    }.firebaseio.com`,
+  databaseURL: import.meta.env.VITE_APP_DATABASE_URL,
   projectId: import.meta.env.VITE_APP_FIREBASE_PROJECT_ID,
-  storageBucket: `${import.meta.env.VITE_APP_FIREBASE_PROJECT_ID}.appspot.com`,
+  storageBucket: import.meta.env.VITE_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_APP_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENTID
 };
 
-//console.log("firebaseConfig", firebaseConfig);
+// console.log("firebaseConfig", firebaseConfig);
 
 export const onlineFirebaseApp = initializeApp(firebaseConfig, "secondary");
 
 // Initialize firebase instance
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore(); // <- needed if using firestor
+const db = firebase.firestore();
 
 if (import.meta.env.VITE_APP_USE_EMULATOR === "true") {
   console.log("Using emulator");
   firebase.firestore().useEmulator("localhost", 8080);
-  firebase.auth().useEmulator("http://localhost:9099", {
-    disableWarnings: true
-  });
+  firebase.auth().useEmulator("http://localhost:9099", { disableWarnings: true });
   firebase.database().useEmulator("localhost", 9000);
-  firebase.functions().useEmulator("localhost", 5001);
-  db.settings({
-    // experimentalForceLongPolling: true, !! Not necessary.
-    merge: true
-  });
+  // firebase.functions().useEmulator("localhost", 5001);
+  db.settings({ merge: true });
 }
 
-// Initialize other services on firebase instance
-firebase.firestore(); // <- needed if using firestore
+// Test Firebase Analytics
+const testAnalytics = () => {
+  try {
+    firebase.analytics().logEvent('test_event', { test_param: 'test_value' });
+    console.log('Analytics connected and event logged.');
+  } catch (error) {
+    console.error('Error with Analytics:', error);
+  }
+};
 
 let firebase_messaging;
 export const functions = firebase.functions();
+
 function requestPermission() {
   console.log("Requesting permission...");
   Notification.requestPermission().then(permission => {
@@ -56,26 +58,24 @@ function requestPermission() {
       console.log("Notification permission granted.");
       if (firebase.messaging.isSupported()) {
         firebase_messaging = firebase.messaging();
-        firebase_messaging
-          .getToken({
-            vapidKey: import.meta.env.VITE_APP_FIREBASE_FCM_VAPID_KEY
-          })
+        firebase_messaging.getToken({
+          vapidKey: import.meta.env.VITE_APP_FIREBASE_FCM_VAPID_KEY
+        })
           .then(curToken => {
             if (curToken) {
-              console.log("curToken", curToken);
+              console.log("FCM token:", curToken);
             } else {
-              console.log("Error in getting token");
+              console.log("Error in getting FCM token.");
             }
           })
-          .catch(err => console.log(err));
+          .catch(err => console.log("FCM token error:", err));
       } else {
-        console.log("messaging not supported");
+        console.log("Messaging not supported.");
       }
     }
   });
 }
-requestPermission();
-// Retrieve Firebase Messaging object.
+// requestPermission(); // uncomment this to request permission for notifications
 
 export const onMessageListener = () =>
   new Promise(resolve => {
@@ -85,5 +85,103 @@ export const onMessageListener = () =>
   });
 
 export const messaging = firebase_messaging;
+
+// Test Firebase Auth
+const testAuth = () => {
+  firebase.auth().signInAnonymously()
+    .then(() => {
+      console.log("Auth connected and signed in anonymously.");
+    })
+    .catch(error => {
+      console.error("Error with Auth:", error);
+    });
+};
+
+// Test Performance Monitoring
+const testPerformance = () => {
+  try {
+    const trace = firebase.performance().trace('test_trace');
+    trace.start();
+    setTimeout(() => {
+      trace.stop();
+      console.log('Performance Monitoring connected and trace completed.');
+    }, 1000);
+  } catch (error) {
+    console.error('Error with Performance Monitoring:', error);
+  }
+};
+
+// Test Firestore
+const testFirestore = () => {
+  const docRef = db.collection('testConnection').doc('testDoc');
+  docRef.set({ test: "This is a test data" })
+    .then(() => {
+      console.log('Firestore connected and data written.');
+      return docRef.get();
+    })
+    .then(doc => {
+      if (doc.exists) {
+        console.log('Firestore data read:', doc.data());
+      } else {
+        console.log('No such document in Firestore.');
+      }
+    })
+    .catch(error => {
+      console.error('Error with Firestore:', error);
+    });
+};
+
+// Test Firebase Realtime Database
+const testRealtimeDatabase = () => {
+  const dbRef = firebase.database().ref('testConnection');
+  dbRef.set({ test: "This is a test data" })
+    .then(() => {
+      console.log('Realtime Database connected and data written.');
+      return dbRef.once('value');
+    })
+    .then(snapshot => {
+      console.log('Realtime Database data read:', snapshot.val());
+    })
+    .catch(error => {
+      console.error('Error with Realtime Database:', error);
+    });
+};
+
+// Test Firebase Storage
+const testStorage = () => {
+  const storageRef = firebase.storage().ref().child('testConnection/testFile.txt');
+  storageRef.putString('This is a test file')
+    .then(snapshot => {
+      console.log('Storage connected and file uploaded.');
+      return storageRef.getDownloadURL();
+    })
+    .then(url => {
+      console.log('Storage file URL:', url);
+    })
+    .catch(error => {
+      console.error('Error with Storage:', error);
+    });
+};
+
+// Test Cloud Functions
+const testFunctions = () => {
+  const testFunction = firebase.functions().httpsCallable('testFunction');
+  testFunction({ message: "This is a test message" })
+    .then(result => {
+      console.log('Functions connected and function called:', result.data);
+    })
+    .catch(error => {
+      console.error('Error with Functions:', error);
+    });
+};
+
+// uncomment the below to run all tests for checking whether your firebase services are connected and working properly
+// testAuth();
+// testRealtimeDatabase();
+// testFirestore();
+// testStorage();
+// testFunctions(); // this will not work as it requires blaze plan
+// testAnalytics();
+// testPerformance();
 
 export default firebase;
