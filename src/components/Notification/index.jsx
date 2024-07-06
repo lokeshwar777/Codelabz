@@ -1,3 +1,4 @@
+import React from "react";
 import { Grid, Card } from "@mui/material";
 import SideBar from "../SideBar";
 import EventsCard from "../CardTabs/Events";
@@ -89,7 +90,6 @@ const Notification = ({ background = "white", textColor = "black" }) => {
                 direction="column"
                 style={{
                   width: "100%",
-                  overflow: "auto",
                   backgroundColor: "transparent",
                   border: "none",
                   boxShadow: "none"

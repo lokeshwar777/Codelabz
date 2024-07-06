@@ -1,4 +1,4 @@
-import { Grid, IconButton, Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 import AddBoxRoundedIcon from "@mui/icons-material/AddBoxRounded";
@@ -10,22 +10,44 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     display: "flex",
     cursor: "pointer",
-    margin: "0.5rem",
-    "&:hover": {}
+    margin: theme.spacing(1),
+    padding: theme.spacing(1.5),
+    borderRadius: "16px",
+    boxShadow: theme.shadows[1],
+    backgroundColor: theme.palette.background.paper,
+    transition: theme.transitions.create(["box-shadow", "transform"], {
+      duration: theme.transitions.duration.short
+    }),
+    "&:hover": {
+      boxShadow: theme.shadows[4],
+      transform: "translateY(-2px)"
+    }
   },
   flex: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems: "center"
   },
   iconDiv: {
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.short
+    }),
+    "&:hover": {
+      transform: "scale(1.3)" // Enlarge the icon on hover
+    }
   },
   title: {
-    fontWeight: "normal",
-    fontSize: theme.spacing(2)
+    fontWeight: theme.typography.fontWeightBold,
+    fontSize: theme.spacing(2.5),
+    lineHeight: 1.2
   },
   description: {
-    fontSize: theme.spacing(1.5)
+    fontSize: theme.spacing(2),
+    color: theme.palette.text.secondary
   }
 }));
 
@@ -52,10 +74,10 @@ function NewCodelabz({ setVisibleModal }) {
             <AddBoxRoundedIcon color="primary" fontSize="large" />
           </Grid>
           <Grid item container sm={9} direction="column">
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h7" className={classes.title}>
               New Codelabz
             </Typography>
-            <Typography variant="body2" className={classes.description}>
+            <Typography variant="body3" className={classes.description}>
               Share a tutorial
             </Typography>
           </Grid>

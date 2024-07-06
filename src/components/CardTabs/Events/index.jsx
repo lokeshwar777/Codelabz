@@ -26,7 +26,15 @@ const useStyles = makeStyles(theme => ({
 
   card: {
     display: "flex",
-    width: "100%"
+    width: "100%",
+    borderRadius: "16px",
+    transition: theme.transitions.create(["box-shadow", "transform"], {
+      duration: theme.transitions.duration.short
+    }),
+    "&:hover": {
+      boxShadow: "-4px 4px 15px 0px black",
+      transform: "scale(1.02)"
+    }
   }
 }));
 
@@ -35,10 +43,7 @@ const EventsCard = props => {
 
   return (
     <div className={classes.root}>
-      <Card
-        className={(classes.card, classes.root)}
-        data-testId="upcomingEventCard"
-      >
+      <Card className={classes.card} data-testId="upcomingEventCard">
         <CardContent
           style={{
             width: "100%"

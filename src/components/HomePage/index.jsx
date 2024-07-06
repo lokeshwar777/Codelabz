@@ -38,13 +38,13 @@ import {
   getTutorialFeedIdArray
 } from "../../store/actions/tutorialPageActions";
 
-function HomePage({ background = "white", textColor = "black" }) {
+function HomePage({ background = "#d3dbde96", textColor = "black" }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const firebase = useFirebase();
   const firestore = useFirestore();
   const [value, setValue] = useState(2);
-  const [selectedTab, setSelectedTab] = useState("1");
+  const [selectedTab, setSelectedTab] = useState(1);
   const [visibleModal, setVisibleModal] = useState(false);
   const [footerContent, setFooterContent] = useState([
     { name: "Help", link: "https://dev.codelabz.io/" },
@@ -210,7 +210,6 @@ function HomePage({ background = "white", textColor = "black" }) {
               direction="column"
               style={{
                 width: "100%",
-                overflow: "auto",
                 backgroundColor: "transparent",
                 border: "none",
                 boxShadow: "none"
@@ -349,12 +348,7 @@ function HomePage({ background = "white", textColor = "black" }) {
             alignContent="center"
             direction="column"
             style={{
-              width: "100%",
-              overflow: "auto",
-              maxHeight: "25rem",
-              backgroundColor: "transparent",
-              border: "none",
-              boxShadow: "none"
+              width: "100%"
             }}
             data-testId="homepageContributors"
           >

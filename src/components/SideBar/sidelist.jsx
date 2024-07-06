@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     minWidth: "100%",
     border: "none",
-    backgrounColor: "transparent",
+    backgroundColor: "transparent",
     boxShadow: "none"
   },
 
@@ -48,8 +48,26 @@ const useStyles = makeStyles(theme => ({
     height: "100%",
     borderRadius: "100px",
     paddingTop: "8px",
-    paddingBottom: "3px",
-    margin: "3px 0 3px 0"
+    paddingBottom: "8px",
+    margin: theme.spacing(1),
+    transition: theme.transitions.create(
+      ["box-shadow", "transform", "background-color"],
+      {
+        duration: theme.transitions.duration.short
+      }
+    ),
+    "&:hover": {
+      boxShadow: theme.shadows[4],
+      transform: "translateY(-5px) translateX(5px)",
+      backgroundColor: "#b3e5fc"
+    }
+  },
+
+  menuItemActive: {
+    backgroundColor: "#d9f1fc",
+    "&:hover": {
+      backgroundColor: "#b3e5fc"
+    }
   },
 
   notification: {
@@ -90,15 +108,7 @@ const SideList = ({
       <MenuList className={classes.menuList}>
         {menuItems.map(function (item, index) {
           return (
-            <div
-              key="menu-items"
-              style={
-                item.link == location.pathname
-                  ? { background: "#d9f1fc", borderRadius: "100px" }
-                  : {}
-              }
-              data-testId={item?.dataTestId}
-            >
+            <div key="menu-items" data-testId={item?.dataTestId}>
               {item.link && (
                 <NavLink to={item.link} className={classes.navLink}>
                   <MenuItem
@@ -107,7 +117,11 @@ const SideList = ({
                       toggleSlider();
                       onStateChange(index);
                     }}
-                    className={classes.menuItem}
+                    className={`${classes.menuItem} ${
+                      item.link === location.pathname
+                        ? classes.menuItemActive
+                        : ""
+                    }`}
                   >
                     {item.img && (
                       <ListItemIcon className={classes.listIcon}>
@@ -122,9 +136,7 @@ const SideList = ({
                       data-testId={item.name}
                       style={{
                         fontWeight:
-                          item?.id && value === item?.id ? "bold" : "normal",
-                        color:
-                          item?.link == location.pathname ? "#0293d9" : "black"
+                          item?.id && value === item?.id ? "bold" : "normal"
                       }}
                       disableTypography
                     >
@@ -134,74 +146,82 @@ const SideList = ({
                 </NavLink>
               )}
               {!item.link && !item.onClick && (
-                <MenuItem
-                  key={item.name}
-                  onClick={() => {
-                    if (onStateChange !== undefined) onStateChange(item);
+                <div className={classes.navLink}>
+                  <MenuItem
+                    key={item.name}
+                    onClick={() => {
+                      if (onStateChange !== undefined) onStateChange(item);
 
-                    toggleSlider();
-                  }}
-                  className={classes.menuItem}
-                >
-                  {item.img && (
-                    <ListItemIcon className={classes.listIcon}>
-                      <Badge
-                        badgeContent={
-                          notification &&
-                          (notification > 99 ? "99+" : notification)
-                        }
-                        color="primary"
-                        classes={{ badge: classes.customBadge }}
-                      >
-                        <NotificationsIcon className={classes.notification} />
-                      </Badge>
-                    </ListItemIcon>
-                  )}
-                  <ListItemText
-                    data-testId={item.name}
-                    style={{
-                      fontWeight:
-                        item?.id && value === item?.id ? "bold" : "normal",
-                      color:
-                        item?.link == location.pathname ? "#0293d9" : "black"
+                      toggleSlider();
                     }}
-                    disableTypography
+                    className={`${classes.menuItem} ${
+                      item.link === location.pathname
+                        ? classes.menuItemActive
+                        : ""
+                    }`}
                   >
-                    {item.name}
-                  </ListItemText>
-                </MenuItem>
+                    {item.img && (
+                      <ListItemIcon className={classes.listIcon}>
+                        <Badge
+                          badgeContent={
+                            notification &&
+                            (notification > 99 ? "99+" : notification)
+                          }
+                          color="primary"
+                          classes={{ badge: classes.customBadge }}
+                        >
+                          <NotificationsIcon className={classes.notification} />
+                        </Badge>
+                      </ListItemIcon>
+                    )}
+                    <ListItemText
+                      data-testId={item.name}
+                      style={{
+                        fontWeight:
+                          item?.id && value === item?.id ? "bold" : "normal"
+                      }}
+                      disableTypography
+                    >
+                      {item.name}
+                    </ListItemText>
+                  </MenuItem>
+                </div>
               )}
               {!item.link && item.onClick && (
-                <MenuItem
-                  key={item.name}
-                  onClick={() => {
-                    if (item.onClick) item.onClick(item);
-                    onStateChange(item);
-                  }}
-                  className={classes.menuItem}
-                >
-                  {item.img && (
-                    <ListItemIcon className={classes.listIcon}>
-                      <img
-                        alt={"..."}
-                        src={item.img}
-                        className={classes.icons}
-                      />
-                    </ListItemIcon>
-                  )}
-                  <ListItemText
-                    data-testId={item.name}
-                    style={{
-                      fontWeight:
-                        item?.id && value === item?.id ? "bold" : "normal",
-                      color:
-                        item?.link == location.pathname ? "#0293d9" : "black"
+                <div className={classes.navLink}>
+                  <MenuItem
+                    key={item.name}
+                    onClick={() => {
+                      if (item.onClick) item.onClick(item);
+                      onStateChange(item);
                     }}
-                    disableTypography
+                    className={`${classes.menuItem} ${
+                      item.link === location.pathname
+                        ? classes.menuItemActive
+                        : ""
+                    }`}
                   >
-                    {item.name}
-                  </ListItemText>
-                </MenuItem>
+                    {item.img && (
+                      <ListItemIcon className={classes.listIcon}>
+                        <img
+                          alt={"..."}
+                          src={item.img}
+                          className={classes.icons}
+                        />
+                      </ListItemIcon>
+                    )}
+                    <ListItemText
+                      data-testId={item.name}
+                      style={{
+                        fontWeight:
+                          item?.id && value === item?.id ? "bold" : "normal"
+                      }}
+                      disableTypography
+                    >
+                      {item.name}
+                    </ListItemText>
+                  </MenuItem>
+                </div>
               )}
             </div>
           );

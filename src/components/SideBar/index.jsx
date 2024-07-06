@@ -31,7 +31,14 @@ const useStyles = makeStyles(theme => ({
   },
   card: {
     margin: "0.1rem",
-    padding: "0.5rem 1.5rem 0.5rem 0.5rem"
+    padding: "0.5rem 0.5rem 0.5rem 0.5rem",
+    borderRadius: "16px",
+    transition: theme.transitions.create(["box-shadow", "transform"], {
+      duration: theme.transitions.duration.short
+    }),
+    "&:hover": {
+      boxShadow: "-4px 4px 15px 0px black"
+    }
   }
 }));
 
@@ -61,56 +68,66 @@ const SideBar = ({
 
   const defaultMenu = [
     {
+      id: 1,
       name: "Home",
       img: Home,
       link: "/"
     },
     {
+      id: 2,
       name: "Notifications",
       img: Notification,
       link: "/notification"
     },
     {
+      id: 3,
       name: "User Settings",
       img: UserSettings,
       link: "/user-dashboard/user-settings"
     },
     {
+      id: 4,
       name: "Organization Settings",
       img: OrganizationSettings,
       link: "/user-dashboard/organization-settings"
     },
     {
+      id: 5,
       name: "Organizations",
       img: Org,
       link: `/org/settings/${currentOrg}`
     },
     {
+      id: 6,
       name: "My Feed",
       img: MyFeed,
       link: "/dashboard/my_feed"
     },
     {
+      id: 7,
       name: "Profile",
       img: Profile,
       link: "/profile"
     },
     {
+      id: 8,
       name: "Bookmarks",
       img: Bookmark,
       link: "/bookmarks"
     },
     {
+      id: 9,
       name: "Tutorials",
       img: Tutorials,
       link: "/tutorials"
     },
     allowDashboard && {
+      id: 10,
       name: "Logout",
       img: Logout,
       onClick: () => signOut()(firebase, dispatch)
     }
-  ];
+  ].filter(Boolean);
 
   const classes = useStyles();
   return (
