@@ -35,8 +35,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import {
   getTutorialFeedData,
-  getTutorialFeedIdArray
-} from "../../store/actions/tutorialPageActions";
+  getTutorialFeedIdArray,
+  getUserFeedData,
+  getUserFeedIdArray
+} from "../../store/actions";
 
 function HomePage({ background = "#d3dbde96", textColor = "black" }) {
   const classes = useStyles();
@@ -110,32 +112,7 @@ function HomePage({ background = "#d3dbde96", textColor = "black" }) {
     "React"
   ]);
 
-  const [usersToFollow, setUsersToFollow] = useState([
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    },
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    },
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    },
-    {
-      name: "Janvi Thakkar",
-      img: [OrgUser],
-      desg: "Software Engineer",
-      onClick: {}
-    }
-  ]);
+  const [usersToFollow, setUsersToFollow] = useState([]);
 
   const [contributors, setContributors] = useState([
     {
@@ -164,18 +141,6 @@ function HomePage({ background = "#d3dbde96", textColor = "black" }) {
     }
   ]);
 
-  const profileData = useSelector(({ firebase: { profile } }) => profile);
-  useEffect(() => {
-    const getFeed = async () => {
-      const tutorialIdArray = await getTutorialFeedIdArray(profileData.uid)(
-        firebase,
-        firestore,
-        dispatch
-      );
-      getTutorialFeedData(tutorialIdArray)(firebase, firestore, dispatch);
-    };
-    getFeed();
-  }, []);
   const tutorials = useSelector(
     ({
       tutorialPage: {
@@ -183,6 +148,50 @@ function HomePage({ background = "#d3dbde96", textColor = "black" }) {
       }
     }) => homepageFeedArray
   );
+  const users = useSelector(
+    ({
+      profile: {
+        userFeed: { userFeedArray }
+      }
+    }) => userFeedArray
+  );
+  const profileData = useSelector(({ firebase: { profile } }) => profile);
+  const userId = profileData.uid;
+  useEffect(() => {
+    const getTutorialFeed = async () => {
+      const tutorialIdArray = await getTutorialFeedIdArray(userId)(
+        firebase,
+        firestore,
+        dispatch
+      );
+      getTutorialFeedData(tutorialIdArray)(firebase, firestore, dispatch);
+    };
+
+    const getUserFeed = async () => {
+      const userIdArray = await getUserFeedIdArray(userId)(
+        firebase,
+        firestore,
+        dispatch
+      );
+      getUserFeedData(userIdArray)(firebase, firestore, dispatch);
+    };
+
+    getTutorialFeed();
+    getUserFeed();
+  }, [userId, firebase, firestore, dispatch]);
+
+  useEffect(() => {
+    const updatedUsersToFollow = users
+      .filter(user => user.uid !== userId)
+      .map(user => ({
+        uid: user.uid,
+        name: user.displayName,
+        img: user.photoURL ? [user.photoURL] : [OrgUser],
+        desg: user.handle,
+        onClick: {}
+      }));
+    setUsersToFollow(updatedUsersToFollow);
+  }, [users]);
 
   const notification = () => {};
   const handleChange = (event, newValue) => {
