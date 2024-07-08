@@ -23,14 +23,20 @@ import TutorialLikesDislikes from "../ui-helpers/TutorialLikesDislikes";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: "0.5rem",
-    borderRadius: "10px",
+    margin: theme.spacing(1),
+    borderRadius: theme.spacing(2),
     boxSizing: "border-box",
     [theme.breakpoints.down("md")]: {
       width: "auto"
     },
     [theme.breakpoints.down("xs")]: {
       width: "auto"
+    },
+    boxShadow: theme.shadows[1],
+    transition: "box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out",
+    "&:hover": {
+      boxShadow: theme.shadows[8],
+      transform: "translateY(-7px)"
     }
   },
   grow: {
@@ -66,6 +72,13 @@ const useStyles = makeStyles(theme => ({
   },
   settings: {
     flexWrap: "wrap"
+  },
+  toggleButton: {
+    marginRight: theme.spacing(1),
+    "&:hover": {
+      transform: "scale(1.1)"
+    },
+    transition: "transform 0.2s ease-in-out"
   }
 }));
 
@@ -105,7 +118,7 @@ export default function CardWithPicture({ tutorial }) {
         avatar={
           <Avatar className={classes.avatar}>
             {user?.photoURL && user?.photoURL.length > 0 ? (
-              <img src={user?.photoURL} />
+              <img src={user?.photoURL} alt="User Avatar" />
             ) : (
               user?.displayName[0]
             )}
@@ -115,7 +128,7 @@ export default function CardWithPicture({ tutorial }) {
           <React.Fragment>
             <Typography
               component="span"
-              variant="h7"
+              variant="h6"
               className={classes.inline}
               color="textPrimary"
               data-testId="UserName"
@@ -127,7 +140,7 @@ export default function CardWithPicture({ tutorial }) {
                 {" for "}
                 <Typography
                   component="span"
-                  variant="h7"
+                  variant="h6"
                   className={classes.inline}
                   color="textPrimary"
                   data-testId="UserOrgName"

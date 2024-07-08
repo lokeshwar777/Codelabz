@@ -19,7 +19,7 @@ const App = () => {
 
   useEffect(() => {
     getProfileData(organizations)(firebase, firestore, dispatch);
-  }, [organizations, firebase, dispatch]);
+  }, [firebase, dispatch]);
   return <Routes />;
 };
 

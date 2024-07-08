@@ -4,8 +4,29 @@
     "source": "functions"
   },
   "hosting": {
-    "public": "build",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "public": "dist",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Cross-Origin-Opener-Policy",
+            "value": "same-origin-allow-popups"
+          },
+          {
+            "key": "Cross-Origin-Resource-Policy",
+            "value": "cross-origin"
+          }
+        ]
+      }
+    ]
   },
   "emulators": {
     "functions": {

@@ -17,6 +17,14 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down("md")]: {
       marginBottom: theme.spacing(0),
       margin: "0.25rem"
+    },
+    borderRadius: "16px",
+    transition: theme.transitions.create(["box-shadow", "transform"], {
+      duration: theme.transitions.duration.short
+    }),
+    "&:hover": {
+      boxShadow: "-4px 4px 15px 0px black",
+      transform: "scale(1.02)"
     }
   },
   tagsContainer: {
@@ -41,8 +49,8 @@ const TagCard = props => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root} data-testId="TagsCard">
-      <Card sx={{ minWidth: 275 }}>
+    <div data-testId="TagsCard">
+      <Card sx={{ minWidth: 275 }} className={classes.root}>
         <CardContent>
           <Typography
             variant="h6"

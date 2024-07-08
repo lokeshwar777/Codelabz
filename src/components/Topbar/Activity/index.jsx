@@ -45,7 +45,7 @@ function Activity() {
       <Grid container data-testId="activityCard">
         <div className={classes.root}>
           <Grid item>
-            <Typography variant="h6">Activity</Typography>
+            <Typography variant="h5">Activity</Typography>
           </Grid>
           <Grid item>
             <ActivityList

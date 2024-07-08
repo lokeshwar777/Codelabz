@@ -13,7 +13,8 @@ const useStyles = makeStyles(theme => ({
       margin: theme.spacing(0.5)
     },
     flex: 1,
-    marginBottom: "2rem"
+    marginBottom: "2rem",
+    width: "100%"
   },
   userImg: {
     width: "2rem",
@@ -25,7 +26,15 @@ const useStyles = makeStyles(theme => ({
   card: {
     display: "flex",
     minWidth: "100%",
-    width: "100%"
+    width: "100%",
+    borderRadius: "16px",
+    transition: theme.transitions.create(["box-shadow", "transform"], {
+      duration: theme.transitions.duration.short
+    }),
+    "&:hover": {
+      boxShadow: "-4px 4px 15px 0px black",
+      transform: "scale(1.02)"
+    }
   },
 
   cardContent: {
@@ -37,7 +46,7 @@ const UserCard = props => {
   const classes = useStyles();
   return (
     <div className={classes.root} data-testId="UsersCard">
-      <Card sx={{ minWidth: 275 }} className={(classes.card, classes.root)}>
+      <Card sx={{ minWidth: 275 }} className={classes.card}>
         <CardContent className={classes.cardContent}>
           <Typography
             variant="h5"
