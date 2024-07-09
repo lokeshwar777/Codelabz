@@ -8,13 +8,16 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 import TurnedInNotOutlinedIcon from "@mui/icons-material/TurnedInNotOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import ToggleButton from "@mui/lab/ToggleButton";
+import ToggleButtonGroup from "@mui/lab/ToggleButtonGroup";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import User from "./UserDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { useFirebase, useFirestore } from "react-redux-firebase";
 import { getUserProfileData } from "../../../store/actions";
 import { HashLink } from "react-router-hash-link";
 import { useParams } from "react-router-dom";
-import TutorialLikesDislikes from "../../ui-helpers/TutorialLikesDislikes";
 const useStyles = makeStyles(() => ({
   container: {
     padding: "20px",
@@ -42,6 +45,8 @@ const PostDetails = ({ details }) => {
   const dispatch = useDispatch();
   const firebase = useFirebase();
   const firestore = useFirestore();
+  const [alignment, setAlignment] = React.useState("left");
+  const [count, setCount] = useState(details.upVote - details.downVote || 0);
   const { id } = useParams();
 
   useEffect(() => {
@@ -60,6 +65,17 @@ const PostDetails = ({ details }) => {
     return timestamp.toDate().toDateString();
   };
 
+  const handleIncrement = () => {
+    setCount(count + 1);
+  };
+
+  const handleDecrement = () => {
+    setCount(count - 1);
+  };
+
+  const handleAlignment = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  };
   const classes = useStyles();
   return (
     <>
@@ -92,7 +108,32 @@ const PostDetails = ({ details }) => {
 
                 <Grid item sx={{ width: "fit-content" }}>
                   <CardActions className={classes.settings} disableSpacing>
-                    <TutorialLikesDislikes tutorial_id={details?.tutorial_id} />
+                    <ToggleButtonGroup
+                      size="small"
+                      className={classes.small}
+                      value={alignment}
+                      exclusive
+                      onChange={handleAlignment}
+                      aria-label="text alignment"
+                    >
+                      <ToggleButton
+                        className={classes.small}
+                        onClick={handleIncrement}
+                        value="left"
+                        aria-label="left aligned"
+                      >
+                        <KeyboardArrowUpIcon />
+                        <span>{count}</span>
+                      </ToggleButton>
+                      <ToggleButton
+                        className={classes.small}
+                        onClick={handleDecrement}
+                        value="center"
+                        aria-label="centered"
+                      >
+                        <KeyboardArrowDownIcon />
+                      </ToggleButton>
+                    </ToggleButtonGroup>
                     <HashLink to={`/tutorial/${id}#comments`}>
                       <IconButton aria-label="share" data-testId="CommentIcon">
                         <ChatOutlinedIcon />
