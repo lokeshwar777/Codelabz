@@ -62,6 +62,7 @@ export {
   getCurrentTutorialData,
   getNotificationData,
   getOrgTutorialsBasicData,
+  getTutorialsByTopTags,
   getUserTutorialsBasicData,
   hideUnHideStep,
   publishUnpublishTutorial,
@@ -75,6 +76,8 @@ export {
   setTutorialTheme,
   updateStepTime,
   updateStepTitle,
+  updateTagFrequencies,
   uploadTutorialImages,
   fetchAndIndexTutorials
 } from "./tutorialsActions";
+export { getRecommendedTutorials } from "./tutorialPageActions";
