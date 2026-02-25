@@ -23,14 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-
-      - name: Cache Node.js modules
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node }}-
+          cache: "npm"
 
       - name: Create .env File
         run: |
@@ -55,13 +48,10 @@ jobs:
       - name: Install Functions Dependencies
         run: cd functions && npm install --legacy-peer-deps
 
-      - name: Install Firebase CLI
+      - name: Install Firebase CLI and start emulators
         # Pinned to 13.35.1 as it is the last version that supports Node 18.
-        run: npm install -g firebase-tools@13.35.1
-
-      - name: Start Firebase Emulators
         run: |
-          firebase emulators:start --import=./testdata --project ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }} &
+          npx firebase-tools@13.35.1 emulators:start --import=./testdata --project ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }} &
           sleep 15
 
       - name: Run Cypress Tests
