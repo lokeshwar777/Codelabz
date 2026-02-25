@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 18
 
       - name: Create .env file with secrets
         run: |
@@ -41,3 +41,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CODELABZ }}
           channelId: live
           projectId: ${{ secrets.VITE_APP_FIREBASE_PROJECT_ID }}
+          firebaseToolsVersion: 13.35.1
