@@ -47,7 +47,7 @@ jobs:
             ${{ runner.os }}-node-${{ matrix.node }}-
 
       - name: Install Functions Dependencies
-        run: npm ci --legacy-peer-deps
+        run: npm install --legacy-peer-deps
         working-directory: functions
 
       - name: Install Firebase CLI
@@ -65,7 +65,7 @@ jobs:
         with:
           browser: chrome
           config-file: cypress.config.js
-          install-command: npm ci --legacy-peer-deps
+          install-command: npm install --legacy-peer-deps
           build: npm run build
           start: npm run dev
           wait-on: "http://localhost:5173"
